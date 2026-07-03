@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     }
     authStorage.clearAll();
     setUser(null);
-    window.location.href = "/login";
+    window.location.href = "/login?logout=true";
   };
 
   const hasRole = (allowedRoles) => {

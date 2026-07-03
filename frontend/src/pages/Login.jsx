@@ -30,6 +30,15 @@ export const Login = ({ defaultRegister = false }) => {
     setError("");
   }, [defaultRegister]);
 
+  // Handle success logout toast notification
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("logout") === "true") {
+      toast.success("Successfully logged out of your session.");
+      navigate("/login", { replace: true });
+    }
+  }, [location, toast, navigate]);
+
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
