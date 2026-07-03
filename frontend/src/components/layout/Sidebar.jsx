@@ -155,8 +155,14 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
         </button>
       </div>
       {showLogoutConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 select-none">
-          <div className="w-full max-w-sm bg-white rounded-xl border border-slate-200 p-6 shadow-xl space-y-4 animate-scale-in">
+        <div 
+          onClick={() => setShowLogoutConfirm(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 select-none cursor-pointer"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm bg-white rounded-xl border border-slate-200 p-6 shadow-xl space-y-4 animate-scale-in cursor-default"
+          >
             <div className="space-y-1">
               <h3 className="text-base font-black text-slate-900 tracking-tight">Confirm Logout</h3>
               <p className="text-xs text-slate-500 font-semibold leading-relaxed">
@@ -173,7 +179,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
               </button>
               <button
                 onClick={logout}
-                className="rounded-lg bg-violet-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-violet-750 cursor-pointer shadow-sm transition-colors"
+                className="rounded-lg bg-red-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-red-750 cursor-pointer shadow-sm transition-colors"
               >
                 Logout
               </button>
