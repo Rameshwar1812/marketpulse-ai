@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
@@ -23,6 +23,7 @@ export const Login = ({ defaultRegister = false }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const logoutToastTriggered = useRef(false);
 
   // Sync mode state with props if they change
   useEffect(() => {
@@ -33,7 +34,8 @@ export const Login = ({ defaultRegister = false }) => {
   // Handle success logout toast notification
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    if (params.get("logout") === "true") {
+    if (params.get("logout") === "true" && !logoutToastTriggered.current) {
+      logoutToastTriggered.current = true;
       toast.success("Successfully logged out of your session.");
       navigate("/login", { replace: true });
     }

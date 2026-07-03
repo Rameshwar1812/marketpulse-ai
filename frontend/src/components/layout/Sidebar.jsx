@@ -142,7 +142,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
             title="Log Out"
             className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
           >
-            <LogOut className="h-4 w-4" />
+            <LogOut className="h-4 w-4 text-red-650" />
           </button>
         </div>
 
