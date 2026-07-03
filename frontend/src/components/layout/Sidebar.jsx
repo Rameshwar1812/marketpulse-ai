@@ -113,10 +113,10 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
               </span>
-              Seeded Demo Live
+              System Active
             </div>
-            <div>Last refresh: Today, 11:10 PM</div>
-            <div className="text-[10px] text-violet-600 font-bold uppercase tracking-wider">Demo Environment</div>
+            <div>Workspace: Synced</div>
+            <div className="text-[10px] text-violet-600 font-bold uppercase tracking-wider">Production Portal</div>
           </div>
         )}
 
