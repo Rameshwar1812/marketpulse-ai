@@ -31,18 +31,18 @@ export const ToastProvider = ({ children }) => {
       {/* Toast Container positioned in the top right corner */}
       <div className="fixed top-6 right-6 z-55 flex flex-col gap-3 max-w-sm w-full select-none pointer-events-none">
         {toasts.map((t) => {
-          let bgColor = "bg-white border-slate-200 text-slate-800";
-          let icon = <Info className="h-4.5 w-4.5 text-violet-500 shrink-0" />;
+          let bgColor = "bg-white/30 backdrop-blur-md border-slate-200/50 text-slate-800";
+          let icon = <Info className="h-4.5 w-4.5 text-violet-600 shrink-0" />;
           
           if (t.type === "success") {
-            bgColor = "bg-[#1a0129] border-violet-800/40 text-white shadow-xl shadow-violet-950/10";
-            icon = <CheckCircle className="h-4.5 w-4.5 text-emerald-400 shrink-0" />;
+            bgColor = "bg-white/30 backdrop-blur-md border-emerald-500/30 text-slate-800 shadow-lg shadow-emerald-500/5";
+            icon = <CheckCircle className="h-4.5 w-4.5 text-emerald-600 shrink-0" />;
           } else if (t.type === "error") {
-            bgColor = "bg-[#11001c] border-rose-900/40 text-white shadow-xl shadow-rose-950/10";
-            icon = <AlertTriangle className="h-4.5 w-4.5 text-rose-500 shrink-0" />;
+            bgColor = "bg-white/30 backdrop-blur-md border-rose-500/30 text-slate-800 shadow-lg shadow-rose-500/5";
+            icon = <AlertTriangle className="h-4.5 w-4.5 text-rose-600 shrink-0" />;
           } else if (t.type === "info") {
-            bgColor = "bg-[#1a0129] border-violet-850/40 text-white shadow-xl shadow-violet-950/10";
-            icon = <Info className="h-4.5 w-4.5 text-violet-400 shrink-0" />;
+            bgColor = "bg-white/30 backdrop-blur-md border-violet-500/30 text-slate-800 shadow-lg shadow-violet-500/5";
+            icon = <Info className="h-4.5 w-4.5 text-violet-600 shrink-0" />;
           }
 
           return (
@@ -54,7 +54,7 @@ export const ToastProvider = ({ children }) => {
               <div className="flex-1 text-xs font-semibold leading-normal">{t.message}</div>
               <button
                 onClick={() => removeToast(t.id)}
-                className="text-slate-400 hover:text-slate-200 cursor-pointer shrink-0 transition-colors"
+                className="text-slate-400 hover:text-slate-700 cursor-pointer shrink-0 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </button>
