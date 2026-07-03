@@ -8,25 +8,23 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Restore session on startup
+  // Restore session on startup using cookie-based token validation
   useEffect(() => {
     const restoreSession = async () => {
-      const cachedToken = authStorage.getToken();
       const cachedUser = authStorage.getUser();
 
-      if (cachedToken && cachedUser) {
+      if (cachedUser) {
         setUser(cachedUser);
-        
-        // Asynchronously fetch fresh user info to verify token status
-        try {
-          const freshUser = await api.get("/api/auth/me");
-          setUser(freshUser);
-          authStorage.setUser(freshUser);
-        } catch (e) {
-          console.warn("Failed to verify token, clearing session", e);
-          authStorage.clearAll();
-          setUser(null);
-        }
+      }
+      
+      try {
+        const freshUser = await api.get("/api/auth/me");
+        setUser(freshUser);
+        authStorage.setUser(freshUser);
+      } catch (e) {
+        console.warn("Failed to verify cookie session status", e);
+        authStorage.clearAll();
+        setUser(null);
       }
       setLoading(false);
     };
@@ -38,7 +36,6 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await api.post("/api/auth/login", { email, password });
-      authStorage.setToken(res.access_token);
       authStorage.setUser(res.user);
       setUser(res.user);
       return res.user;
@@ -61,7 +58,6 @@ export const AuthProvider = ({ children }) => {
         password,
         role: "analyst"
       });
-      authStorage.setToken(res.access_token);
       authStorage.setUser(res.user);
       setUser(res.user);
       return res.user;
@@ -74,7 +70,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await api.post("/api/auth/logout");
+    } catch (e) {
+      console.warn("Failed to clear cookie in backend", e);
+    }
     authStorage.clearAll();
     setUser(null);
     window.location.href = "/login";

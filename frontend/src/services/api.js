@@ -3,8 +3,6 @@ import { authStorage } from "./auth";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 async function request(endpoint, options = {}) {
-  const token = authStorage.getToken();
-  
   const headers = {
     ...options.headers,
   };
@@ -14,13 +12,10 @@ async function request(endpoint, options = {}) {
     headers["Content-Type"] = "application/json";
   }
   
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
-  }
-  
   const config = {
     ...options,
     headers,
+    credentials: "include", // Enable native cookie propagation
   };
   
   const url = `${API_BASE_URL}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import User
@@ -9,7 +9,7 @@ from app.dependencies import get_current_user
 router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 
 @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
-def register(user_in: UserCreate, db: Session = Depends(get_db)):
+def register(user_in: UserCreate, response: Response, db: Session = Depends(get_db)):
     # Check duplicate email
     existing_user = db.query(User).filter(User.email == user_in.email).first()
     if existing_user:
@@ -33,6 +33,16 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
     # Create access token
     access_token = create_access_token(data={"email": new_user.email, "role": new_user.role})
     
+    # Set the JWT in HTTP cookies
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        samesite="lax",
+        secure=False,
+        max_age=3600
+    )
+    
     return {
         "access_token": access_token,
         "token_type": "bearer",
@@ -40,7 +50,7 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
     }
 
 @router.post("/login", response_model=Token)
-def login(credentials: UserLogin, db: Session = Depends(get_db)):
+def login(credentials: UserLogin, response: Response, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == credentials.email).first()
     if not user or not verify_password(credentials.password, user.hashed_password):
         raise HTTPException(
@@ -58,11 +68,26 @@ def login(credentials: UserLogin, db: Session = Depends(get_db)):
 
     access_token = create_access_token(data={"email": user.email, "role": user.role})
     
+    # Set the JWT in HTTP cookies
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        samesite="lax",
+        secure=False,
+        max_age=3600
+    )
+    
     return {
         "access_token": access_token,
         "token_type": "bearer",
         "user": user
     }
+
+@router.post("/logout")
+def logout(response: Response):
+    response.delete_cookie("access_token")
+    return {"detail": "Logged out successfully"}
 
 @router.get("/me", response_model=UserResponse)
 def get_me(current_user: User = Depends(get_current_user)):

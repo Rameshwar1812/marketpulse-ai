@@ -15,28 +15,28 @@ def seed_database(db: Session):
     # 1. Seed Users
     users = [
         User(
-            full_name="Executive Administrator",
-            email="executive@marketpulse.demo",
+            full_name="Rajesh Kumar",
+            email="rajesh.kumar@marketpulse.demo",
             hashed_password=hash_password("DemoPass123!"),
             role="executive",
             is_active=True
         ),
         User(
-            full_name="Market Analyst",
-            email="analyst@marketpulse.demo",
+            full_name="Aarav Sharma",
+            email="aarav.sharma@marketpulse.demo",
             hashed_password=hash_password("DemoPass123!"),
             role="analyst",
             is_active=True
         ),
         User(
-            full_name="Compliance Reviewer",
-            email="reviewer@marketpulse.demo",
+            full_name="Priya Patel",
+            email="priya.patel@marketpulse.demo",
             hashed_password=hash_password("DemoPass123!"),
             role="reviewer",
             is_active=True
         ),
         User(
-            full_name="System Administrator",
+            full_name="Amit Singh",
             email="admin@marketpulse.demo",
             hashed_password=hash_password("DemoPass123!"),
             role="admin",

@@ -108,12 +108,12 @@ From the root workspace directory, you can run the following shortcut scripts:
 ## 6. Demonstration Credentials
 To log into the platform, utilize the following pre-seeded credentials:
 
-| Account Type | Email Address | Password |
-| :--- | :--- | :--- |
-| **Executive** | `executive@marketpulse.demo` | `DemoPass123!` |
-| **Analyst** | `analyst@marketpulse.demo` | `DemoPass123!` |
-| **Reviewer** | `reviewer@marketpulse.demo` | `DemoPass123!` |
-| **Admin** | `admin@marketpulse.demo` | `DemoPass123!` |
+| Name | Account Type | Email Address | Password |
+| :--- | :--- | :--- | :--- |
+| **Rajesh Kumar** | Executive | `rajesh.kumar@marketpulse.demo` | `DemoPass123!` |
+| **Aarav Sharma** | Analyst | `aarav.sharma@marketpulse.demo` | `DemoPass123!` |
+| **Priya Patel** | Reviewer | `priya.patel@marketpulse.demo` | `DemoPass123!` |
+| **Amit Singh** | Admin | `admin@marketpulse.demo` | `DemoPass123!` |
 
 ---
 

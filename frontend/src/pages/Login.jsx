@@ -86,19 +86,6 @@ export const Login = ({ defaultRegister = false }) => {
     }
   };
 
-  const handleFillDemo = (demoEmail) => {
-    setEmail(demoEmail);
-    setPassword("DemoPass123!");
-    setError("");
-  };
-
-  const demoUsers = [
-    { label: "Executive Demo", email: "executive@marketpulse.demo", role: "executive" },
-    { label: "Analyst Demo", email: "analyst@marketpulse.demo", role: "analyst" },
-    { label: "Reviewer Demo", email: "reviewer@marketpulse.demo", role: "reviewer" },
-    { label: "Admin Demo", email: "admin@marketpulse.demo", role: "admin" }
-  ];
-
   return (
     <div className="flex min-h-screen w-screen bg-slate-50">
       {/* Left Column: Visual Brand Composition */}
@@ -123,32 +110,16 @@ export const Login = ({ defaultRegister = false }) => {
         {/* Brand Headline */}
         <div className="relative z-10 my-auto max-w-md space-y-6">
           <h1 className="text-4xl font-extrabold tracking-tight leading-tight">
-            Turn fragmented market data into traceable, decision-ready intelligence.
+            Traceable, decision-ready market intelligence.
           </h1>
           <p className="text-sm text-slate-400 font-medium leading-relaxed">
-            Explore category momentum, product positioning, ingredient signals, and verified AI classifications from one centralized compliance-backed intelligence workspace.
+            Centralize health supplements data research, monitor hero formulation trends, and review packaging claims in a secure audit workspace.
           </p>
-
-          {/* Floating mini insight cards */}
-          <div className="mt-8 space-y-3">
-            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-xs">
-              <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
-              <div className="text-xs font-semibold">
-                <span className="font-semibold text-white">Sleep & Relaxation</span> &bull; 0.94 Confidence &bull; $14.2M Revenue
-              </div>
-            </div>
-            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-xs">
-              <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></div>
-              <div className="text-xs font-semibold">
-                <span className="font-semibold text-white">Ashwagandha Signals</span> &bull; Momentum rising (+3.4) &bull; Stress & Mood
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Footer */}
         <div className="relative z-10 text-xs text-slate-500 font-semibold uppercase tracking-wider">
-          Demonstration Environment &bull; MarketPulse AI v1.0
+          Secure Portal &bull; MarketPulse AI
         </div>
       </div>
 
@@ -163,7 +134,7 @@ export const Login = ({ defaultRegister = false }) => {
             <p className="text-xs font-semibold text-slate-500">
               {isRegister 
                 ? "Get access to the MarketPulse AI intelligence platform." 
-                : "Enter your credentials or select a demonstration account below."
+                : "Enter your email and password to access the portal."
               }
             </p>
           </div>
@@ -186,7 +157,7 @@ export const Login = ({ defaultRegister = false }) => {
                   <User className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
                   <input
                     type="text"
-                    placeholder="Jane Doe"
+                    placeholder="Aarav Sharma"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     disabled={loading}
@@ -202,7 +173,7 @@ export const Login = ({ defaultRegister = false }) => {
                 <Mail className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
                 <input
                   type="email"
-                  placeholder={isRegister ? "jane.doe@organization.com" : "name@organization.com"}
+                  placeholder="aarav.sharma@marketpulse.ai"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={loading}
@@ -334,34 +305,6 @@ export const Login = ({ defaultRegister = false }) => {
               </>
             )}
           </p>
-
-          {/* Quick Demo Access Credentials - only show on Login mode */}
-          {!isRegister && (
-            <>
-              <hr className="border-slate-200" />
-              <div className="space-y-2">
-                <div className="flex items-center gap-1 text-[11px] font-bold text-slate-500 uppercase tracking-wide">
-                  <Shield className="h-3.5 w-3.5 text-indigo-600" />
-                  <span>Demo Quick Accounts</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {demoUsers.map((user) => (
-                    <button
-                      key={user.email}
-                      onClick={() => handleFillDemo(user.email)}
-                      disabled={loading}
-                      className="flex flex-col items-start rounded-lg border border-slate-200 bg-white p-2.5 text-left hover:bg-slate-50 hover:border-indigo-400 transition-all cursor-pointer shadow-2xs"
-                    >
-                      <span className="text-[11px] font-bold text-slate-800">{user.label}</span>
-                      <span className="text-[9px] text-slate-450 truncate w-full font-semibold">{user.email}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-
-          <DemoDataNotice />
         </div>
       </div>
     </div>
