@@ -6,17 +6,29 @@ const ToastContext = createContext(null);
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const showToast = useCallback((message, type = "info", duration = 4000) => {
-    const id = Date.now() + Math.random().toString(36).substr(2, 9);
-    setToasts((prev) => [...prev, { id, message, type }]);
-
+  const removeToast = useCallback((id) => {
+    setToasts((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, isExiting: true } : t))
+    );
+    // Allow animation to run (300ms) before actual deletion from array
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, duration);
+    }, 300);
   }, []);
 
-  const removeToast = useCallback((id) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
+  const showToast = useCallback((message, type = "info", duration = 4000) => {
+    const id = Date.now() + Math.random().toString(36).substr(2, 9);
+    setToasts((prev) => [...prev, { id, message, type, isExiting: false }]);
+
+    // Trigger exit animation before duration ends
+    setTimeout(() => {
+      setToasts((prev) =>
+        prev.map((t) => (t.id === id ? { ...t, isExiting: true } : t))
+      );
+      setTimeout(() => {
+        setToasts((prev) => prev.filter((t) => t.id !== id));
+      }, 300);
+    }, duration);
   }, []);
 
   const toast = {
@@ -29,7 +41,7 @@ export const ToastProvider = ({ children }) => {
     <ToastContext.Provider value={toast}>
       {children}
       {/* Toast Container positioned in the top right corner */}
-      <div className="fixed top-6 right-6 z-55 flex flex-col gap-3 max-w-sm w-full select-none pointer-events-none">
+      <div className="fixed top-6 right-6 z-55 flex flex-col gap-3 max-w-sm w-full select-none pointer-events-none overflow-hidden">
         {toasts.map((t) => {
           let bgColor = "bg-violet-600/30 backdrop-blur-md border-slate-200/50 text-violet-950";
           let icon = <Info className="h-4.5 w-4.5 text-violet-700 shrink-0" />;
@@ -48,7 +60,9 @@ export const ToastProvider = ({ children }) => {
           return (
             <div
               key={t.id}
-              className={`flex items-start gap-3 rounded-xl border p-4 shadow-lg pointer-events-auto transition-all duration-300 ease-out animate-slide-in-top ${bgColor}`}
+              className={`flex items-start gap-3 rounded-xl border p-4 shadow-lg pointer-events-auto transition-all duration-300 ease-out ${
+                t.isExiting ? "animate-toast-exit" : "animate-toast-enter"
+              } ${bgColor}`}
             >
               {icon}
               <div className="flex-1 text-xs font-semibold leading-normal">{t.message}</div>
