@@ -1,0 +1,28 @@
+# Version control ignore rules
+
+# Python ignores
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.env
+.pytest_cache/
+*.db
+marketpulse.db
+
+# Node ignores
+node_modules/
+dist/
+dist-ssr/
+*.local
+.eslintcache
+.project
+.vscode/
+
+# System ignores
+.DS_Store
+Thumbs.db
