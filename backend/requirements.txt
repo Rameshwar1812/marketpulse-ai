@@ -5,6 +5,7 @@ pydantic
 pydantic-settings
 python-multipart
 PyJWT
-pwdlib
+pwdlib[argon2]
 google-genai
 psycopg2-binary
+email-validator

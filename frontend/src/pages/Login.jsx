@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Lock, Mail, AlertTriangle, Eye, EyeOff, CheckSquare, Shield } from "lucide-react";
-import DemoDataNotice from "../components/common/DemoDataNotice";
+import { Lock, Mail, AlertTriangle, Eye, EyeOff, Shield, User } from "lucide-react";
+import { DemoDataNotice } from "../components/common/DemoDataNotice";
 
-export const Login = () => {
+export const Login = ({ defaultRegister = false }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, isAuthenticated } = useAuth();
+  const { login, register, isAuthenticated } = useAuth();
 
+  // Mode state
+  const [isRegister, setIsRegister] = useState(defaultRegister);
+
+  // Form states
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Sync mode state with props if they change
+  useEffect(() => {
+    setIsRegister(defaultRegister);
+    setError("");
+  }, [defaultRegister]);
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -26,20 +39,50 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      setError("Please fill in all credential fields.");
-      return;
-    }
     setError("");
-    setLoading(true);
-    try {
-      await login(email, password);
-      const from = location.state?.from?.pathname || "/dashboard";
-      navigate(from, { replace: true });
-    } catch (e) {
-      setError(e.message || "Invalid email or password. Please verify your credentials.");
-    } finally {
-      setLoading(false);
+
+    if (isRegister) {
+      // Registration validation
+      if (!fullName || !email || !password || !confirmPassword) {
+        setError("Please fill in all register fields.");
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError("Passwords do not match.");
+        return;
+      }
+      if (password.length < 6) {
+        setError("Password must be at least 6 characters.");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        await register(fullName, email, password);
+        // Automatically sign in or navigate to dashboard after successful registration
+        navigate("/dashboard", { replace: true });
+      } catch (err) {
+        setError(err.message || "Failed to create account. Email may already be registered.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      // Login validation
+      if (!email || !password) {
+        setError("Please fill in all credential fields.");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        await login(email, password);
+        const from = location.state?.from?.pathname || "/dashboard";
+        navigate(from, { replace: true });
+      } catch (err) {
+        setError(err.message || "Invalid email or password. Please verify your credentials.");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -90,13 +133,13 @@ export const Login = () => {
           <div className="mt-8 space-y-3">
             <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-xs">
               <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
-              <div className="text-xs">
+              <div className="text-xs font-semibold">
                 <span className="font-semibold text-white">Sleep & Relaxation</span> &bull; 0.94 Confidence &bull; $14.2M Revenue
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-xs">
               <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></div>
-              <div className="text-xs">
+              <div className="text-xs font-semibold">
                 <span className="font-semibold text-white">Ashwagandha Signals</span> &bull; Momentum rising (+3.4) &bull; Stress & Mood
               </div>
             </div>
@@ -109,14 +152,19 @@ export const Login = () => {
         </div>
       </div>
 
-      {/* Right Column: Authentication Card */}
+      {/* Right Column: Authentication Form Area */}
       <div className="flex w-full lg:w-1/2 items-center justify-center p-8">
         <div className="w-full max-w-md space-y-6">
           {/* Header */}
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900">Sign in to Workspace</h2>
+            <h2 className="text-2xl font-black tracking-tight text-slate-900">
+              {isRegister ? "Create Analyst Account" : "Sign in to Workspace"}
+            </h2>
             <p className="text-xs font-semibold text-slate-500">
-              Enter your credentials or select a demonstration account below.
+              {isRegister 
+                ? "Get access to the MarketPulse AI intelligence platform." 
+                : "Enter your credentials or select a demonstration account below."
+              }
             </p>
           </div>
 
@@ -128,15 +176,33 @@ export const Login = () => {
             </div>
           )}
 
-          {/* Credentials Card */}
+          {/* Combined credentials & Registration Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
+            
+            {isRegister && (
+              <div className="space-y-1">
+                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Full name</label>
+                <div className="relative">
+                  <User className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Jane Doe"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    disabled={loading}
+                    className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-3 text-xs outline-hidden focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="space-y-1">
               <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Email address</label>
               <div className="relative">
                 <Mail className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
                 <input
                   type="email"
-                  placeholder="name@organization.com"
+                  placeholder={isRegister ? "jane.doe@organization.com" : "name@organization.com"}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={loading}
@@ -145,86 +211,155 @@ export const Login = () => {
               </div>
             </div>
 
-            <div className="space-y-1">
-              <div className="flex items-center justify-between">
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Password</label>
-                <Link to="#" className="text-[10px] font-bold text-indigo-600 hover:underline">Forgot password?</Link>
+            {isRegister ? (
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Password</label>
+                  <div className="relative">
+                    <Lock className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={loading}
+                      className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-3 text-xs outline-hidden focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Confirm</label>
+                  <div className="relative">
+                    <Lock className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      disabled={loading}
+                      className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-3 text-xs outline-hidden focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="relative">
-                <Lock className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={loading}
-                  className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-10 text-xs outline-hidden focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
-                />
+            ) : (
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Password</label>
+                  <button type="button" className="text-[10px] font-bold text-indigo-600 hover:underline cursor-pointer">Forgot password?</button>
+                </div>
+                <div className="relative">
+                  <Lock className="absolute top-2.5 left-3 h-4.5 w-4.5 text-slate-400" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={loading}
+                    className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-10 pr-10 text-xs outline-hidden focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute top-2.5 right-3 text-slate-400 hover:text-slate-600"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!isRegister && (
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 text-xs font-semibold text-slate-650 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="rounded border-slate-350 text-indigo-600 outline-hidden"
+                  />
+                  <span>Remember me</span>
+                </label>
+              </div>
+            )}
+
+            {isRegister && (
+              <div className="flex items-center justify-start py-0.5">
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-2.5 right-3 text-slate-400 hover:text-slate-600"
+                  className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-slate-700 cursor-pointer"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  <span>{showPassword ? "Hide Passwords" : "Show Passwords"}</span>
                 </button>
               </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="rounded border-slate-300 text-indigo-600 outline-hidden"
-                />
-                <span>Remember me</span>
-              </label>
-            </div>
+            )}
 
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center rounded-lg bg-indigo-600 py-2.5 text-xs font-semibold text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-md shadow-indigo-100 cursor-pointer"
+              className="flex w-full items-center justify-center rounded-lg bg-indigo-600 py-2.5 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-sm cursor-pointer"
             >
               {loading ? (
                 <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
               ) : (
-                "Sign In"
+                isRegister ? "Create Account" : "Sign In"
               )}
             </button>
           </form>
 
-          {/* Register link */}
+          {/* Toggle between Login and Register states */}
           <p className="text-center text-xs font-semibold text-slate-500">
-            Don't have an account?{" "}
-            <Link to="/register" className="font-bold text-indigo-600 hover:underline">
-              Create Analyst Account
-            </Link>
+            {isRegister ? (
+              <>
+                Already have an account?{" "}
+                <button 
+                  onClick={() => { setIsRegister(false); setError(""); }}
+                  className="font-bold text-indigo-600 hover:underline cursor-pointer"
+                >
+                  Sign In Instead
+                </button>
+              </>
+            ) : (
+              <>
+                Don't have an account?{" "}
+                <button 
+                  onClick={() => { setIsRegister(true); setError(""); }}
+                  className="font-bold text-indigo-600 hover:underline cursor-pointer"
+                >
+                  Create Analyst Account
+                </button>
+              </>
+            )}
           </p>
 
-          <hr className="border-slate-200" />
-
-          {/* Quick Demo Access Credentials */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-1 text-[11px] font-bold text-slate-500 uppercase tracking-wide">
-              <Shield className="h-3.5 w-3.5 text-indigo-600" />
-              <span>Demo Quick Accounts</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              {demoUsers.map((user) => (
-                <button
-                  key={user.email}
-                  onClick={() => handleFillDemo(user.email)}
-                  disabled={loading}
-                  className="flex flex-col items-start rounded-lg border border-slate-200 bg-white p-2.5 text-left hover:bg-slate-50 hover:border-indigo-400 transition-all cursor-pointer"
-                >
-                  <span className="text-[11px] font-bold text-slate-800">{user.label}</span>
-                  <span className="text-[9px] text-slate-400 truncate w-full">{user.email}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* Quick Demo Access Credentials - only show on Login mode */}
+          {!isRegister && (
+            <>
+              <hr className="border-slate-200" />
+              <div className="space-y-2">
+                <div className="flex items-center gap-1 text-[11px] font-bold text-slate-500 uppercase tracking-wide">
+                  <Shield className="h-3.5 w-3.5 text-indigo-600" />
+                  <span>Demo Quick Accounts</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {demoUsers.map((user) => (
+                    <button
+                      key={user.email}
+                      onClick={() => handleFillDemo(user.email)}
+                      disabled={loading}
+                      className="flex flex-col items-start rounded-lg border border-slate-200 bg-white p-2.5 text-left hover:bg-slate-50 hover:border-indigo-400 transition-all cursor-pointer shadow-2xs"
+                    >
+                      <span className="text-[11px] font-bold text-slate-800">{user.label}</span>
+                      <span className="text-[9px] text-slate-450 truncate w-full font-semibold">{user.email}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
 
           <DemoDataNotice />
         </div>

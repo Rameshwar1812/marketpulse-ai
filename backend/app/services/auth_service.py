@@ -1,7 +1,6 @@
 import datetime
 import jwt
 from pwdlib import PasswordHash
-from pwdlib.exceptions import VerifyMismatchError
 from app.config import settings
 
 # Initialize password hash
@@ -13,7 +12,7 @@ def hash_password(password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     try:
         return password_hash.verify(plain_password, hashed_password)
-    except VerifyMismatchError:
+    except Exception:
         return False
 
 def create_access_token(data: dict) -> str:
