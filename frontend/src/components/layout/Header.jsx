@@ -66,20 +66,7 @@ export const Header = ({ onSearchClick }) => {
           </kbd>
         </div>
 
-        {/* AI Status Indicator */}
-        {aiStatus.checked && (
-          <div 
-            title={aiStatus.configured ? "AI Engine connected and ready." : "AI configuration missing. Running in offline mode."}
-            className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              aiStatus.configured 
-                ? "bg-emerald-50 text-emerald-700 border border-emerald-100" 
-                : "bg-amber-50 text-amber-700 border border-amber-100"
-            }`}
-          >
-            <Sparkles className={`h-3.5 w-3.5 ${aiStatus.configured ? "animate-pulse" : ""}`} />
-            <span>AI: {aiStatus.configured ? "Ready" : "Offline"}</span>
-          </div>
-        )}
+
 
         {/* Notifications Mock */}
         <button 
