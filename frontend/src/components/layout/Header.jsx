@@ -69,7 +69,7 @@ export const Header = ({ onSearchClick }) => {
         {/* AI Status Indicator */}
         {aiStatus.checked && (
           <div 
-            title={aiStatus.configured ? "AI Engine connected and ready." : "AI configuration missing. Running in offline/mock mode."}
+            title={aiStatus.configured ? "AI Engine connected and ready." : "AI configuration missing. Running in offline mode."}
             className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
               aiStatus.configured 
                 ? "bg-emerald-50 text-emerald-700 border border-emerald-100" 
