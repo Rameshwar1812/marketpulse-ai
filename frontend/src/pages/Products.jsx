@@ -139,7 +139,7 @@ export const Products = () => {
               placeholder="Search product name, SKU, or brand..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50/50 py-2 pl-9 pr-3 text-xs outline-hidden focus:border-indigo-600 focus:bg-white"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50/50 py-2 pl-9 pr-3 text-xs outline-hidden focus:border-violet-600 focus:bg-white"
             />
           </div>
 
@@ -148,7 +148,7 @@ export const Products = () => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-600 outline-hidden focus:border-indigo-600 cursor-pointer"
+              className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-600 outline-hidden focus:border-violet-600 cursor-pointer"
             >
               <option value="revenue_desc">Revenue: High to Low</option>
               <option value="revenue_asc">Revenue: Low to High</option>
@@ -161,14 +161,14 @@ export const Products = () => {
             <div className="flex rounded-lg border border-slate-200 p-0.5 bg-slate-50/50">
               <button
                 onClick={() => setViewMode("table")}
-                className={`p-1.5 rounded-md cursor-pointer transition-colors ${viewMode === "table" ? "bg-white text-indigo-600 shadow-xs" : "text-slate-400 hover:text-slate-600"}`}
+                className={`p-1.5 rounded-md cursor-pointer transition-colors ${viewMode === "table" ? "bg-white text-violet-600 shadow-xs" : "text-slate-400 hover:text-slate-600"}`}
                 title="Table View"
               >
                 <List className="h-4 w-4" />
               </button>
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-1.5 rounded-md cursor-pointer transition-colors ${viewMode === "grid" ? "bg-white text-indigo-600 shadow-xs" : "text-slate-400 hover:text-slate-600"}`}
+                className={`p-1.5 rounded-md cursor-pointer transition-colors ${viewMode === "grid" ? "bg-white text-violet-600 shadow-xs" : "text-slate-400 hover:text-slate-600"}`}
                 title="Grid Cards View"
               >
                 <LayoutGrid className="h-4 w-4" />
@@ -266,7 +266,7 @@ export const Products = () => {
                         </td>
                         <td className="py-4 text-right text-slate-800 font-semibold">{formatCurrency(p.illustrative_revenue)}</td>
                         <td className="py-4 text-right">
-                          <span className="inline-flex items-center rounded-sm bg-indigo-50 px-1.5 py-0.2 text-[10px] font-bold text-indigo-700 border border-indigo-150">
+                          <span className="inline-flex items-center rounded-sm bg-violet-50 px-1.5 py-0.2 text-[10px] font-bold text-violet-700 border border-violet-150">
                             {p.momentum_score}
                           </span>
                         </td>
@@ -325,7 +325,7 @@ export const Products = () => {
                     <div>
                       <div className="text-[9px] text-slate-400 font-bold uppercase text-right">Momentum</div>
                       <div className="text-right">
-                        <span className="rounded-sm bg-indigo-50 px-1 py-0.2 text-[10px] font-bold text-indigo-700">
+                        <span className="rounded-sm bg-violet-50 px-1 py-0.2 text-[10px] font-bold text-violet-700">
                           {p.momentum_score}
                         </span>
                       </div>
@@ -374,7 +374,7 @@ export const Products = () => {
             <span className="text-slate-400 font-bold">No products matched query filters.</span>
             <button 
               onClick={() => { setSearch(""); setCategoryId(""); setBrandId(""); setMinConfidence(""); setReviewStatus(""); }} 
-              className="rounded-lg bg-indigo-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 cursor-pointer"
+              className="rounded-lg bg-violet-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-violet-700 cursor-pointer"
             >
               Reset Filters
             </button>

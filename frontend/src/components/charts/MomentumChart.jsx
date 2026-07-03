@@ -30,7 +30,7 @@ export const MomentumChart = ({ data }) => {
         <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-lg">
           <p className="text-xs font-bold text-slate-800">{dataPoint.name}</p>
           <div className="mt-1 space-y-0.5 text-[11px] font-medium text-slate-500">
-            <p>Avg Momentum: <span className="text-indigo-600 font-bold">{dataPoint.momentum}/10</span></p>
+            <p>Avg Momentum: <span className="text-violet-600 font-bold">{dataPoint.momentum}/10</span></p>
             <p>Products: <span className="text-slate-800 font-semibold">{dataPoint.productCount}</span></p>
           </div>
         </div>

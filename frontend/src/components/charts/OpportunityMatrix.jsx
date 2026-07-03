@@ -38,7 +38,7 @@ export const OpportunityMatrix = ({ data }) => {
           <p className="text-xs font-bold text-slate-800">{dataPoint.name}</p>
           <div className="mt-1 space-y-0.5 text-[11px] font-medium text-slate-500">
             <p>Illustrative Revenue: <span className="text-slate-800 font-bold">{formatCurrency(dataPoint.x)}</span></p>
-            <p>Avg Momentum: <span className="text-indigo-600 font-bold">{dataPoint.y}/10</span></p>
+            <p>Avg Momentum: <span className="text-violet-600 font-bold">{dataPoint.y}/10</span></p>
             <p>Products: <span className="text-slate-800 font-semibold">{dataPoint.productCount}</span></p>
           </div>
         </div>

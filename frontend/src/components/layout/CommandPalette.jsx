@@ -66,7 +66,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     { name: "Executive Dashboard", path: "/dashboard" },
     { name: "Market Explorer Workspace", path: "/market-explorer" },
     { name: "Products Catalog Catalog", path: "/products" },
-    { name: "Ask Gemini Intelligence", path: "/ask" },
+    { name: "Ask AI Intelligence", path: "/ask" },
     { name: "Review Pending Classifications", path: "/review" },
     { name: "Data Ingestion Sources", path: "/sources" }
   ];
@@ -113,7 +113,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
                     className="flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 cursor-pointer border border-transparent hover:border-slate-100"
                   >
                     <div className="flex items-center gap-2">
-                      <Package className="h-4 w-4 text-indigo-500" />
+                      <Package className="h-4 w-4 text-violet-500" />
                       <div>
                         <div className="font-semibold">{p.name}</div>
                         <div className="text-[10px] text-slate-400">{p.brand_name} &bull; {p.category_name}</div>
@@ -137,7 +137,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
                   <div
                     key={link.path}
                     onClick={() => handleNavigate(link.path)}
-                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 hover:border-slate-100 border border-transparent cursor-pointer"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-violet-600 hover:border-slate-100 border border-transparent cursor-pointer"
                   >
                     <Navigation className="h-3.5 w-3.5 text-slate-400" />
                     <span className="truncate">{link.name}</span>
@@ -149,15 +149,15 @@ export const CommandPalette = ({ isOpen, onClose }) => {
 
           {/* Suggested Prompts */}
           <div className="space-y-1">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Suggested Analysis (Gemini)</h4>
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Suggested Analysis (AI)</h4>
             <div className="space-y-1">
               {suggestions.map((s) => (
                 <div
                   key={s}
                   onClick={() => handleAskQuestion(s)}
-                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs text-slate-600 hover:bg-indigo-50/50 hover:text-indigo-700 cursor-pointer"
+                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs text-slate-600 hover:bg-violet-50/50 hover:text-violet-700 cursor-pointer"
                 >
-                  <Sparkles className="h-3.5 w-3.5 text-indigo-500 shrink-0" />
+                  <Sparkles className="h-3.5 w-3.5 text-violet-500 shrink-0" />
                   <span className="truncate">{s}</span>
                 </div>
               ))}

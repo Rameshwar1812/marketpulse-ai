@@ -82,14 +82,14 @@ export const AuditTrail = () => {
               placeholder="Search user, category, reason..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-slate-50/50 py-1.5 pl-8 pr-3 text-xs outline-hidden focus:border-indigo-600 focus:bg-white w-48"
+              className="rounded-lg border border-slate-200 bg-slate-50/50 py-1.5 pl-8 pr-3 text-xs outline-hidden focus:border-violet-600 focus:bg-white w-48"
             />
           </div>
 
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-600 outline-hidden focus:border-indigo-600 cursor-pointer"
+            className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-600 outline-hidden focus:border-violet-600 cursor-pointer"
           >
             <option value="all">All Actions</option>
             <option value="override_classification">Override Classification</option>
@@ -178,7 +178,7 @@ export const AuditTrail = () => {
           <div className="space-y-6 text-xs leading-relaxed font-semibold text-slate-650">
             <div className="rounded-lg bg-slate-50 border border-slate-150 p-4 space-y-3">
               <div className="flex items-center gap-1.5 font-bold text-slate-800 uppercase tracking-wide">
-                <History className="h-4 w-4 text-indigo-650" />
+                <History className="h-4 w-4 text-violet-650" />
                 <span>Governance Audit Entry</span>
               </div>
               
@@ -204,9 +204,9 @@ export const AuditTrail = () => {
                   <span className="text-[9px] font-bold text-slate-400 uppercase">Previous Mapping</span>
                   <p className="font-bold text-slate-700 mt-1">{selectedLog.previous_value}</p>
                 </div>
-                <div className="rounded-lg border border-indigo-200 p-3 bg-indigo-50/15 text-center">
-                  <span className="text-[9px] font-bold text-indigo-600 uppercase">New Mapping</span>
-                  <p className="font-bold text-indigo-700 mt-1">{selectedLog.new_value}</p>
+                <div className="rounded-lg border border-violet-200 p-3 bg-violet-50/15 text-center">
+                  <span className="text-[9px] font-bold text-violet-600 uppercase">New Mapping</span>
+                  <p className="font-bold text-violet-700 mt-1">{selectedLog.new_value}</p>
                 </div>
               </div>
             </div>
@@ -219,12 +219,12 @@ export const AuditTrail = () => {
             </div>
 
             {selectedLog.model_name !== "N/A" && (
-              <div className="rounded-lg border border-indigo-150 bg-indigo-50/10 p-3 flex gap-2 items-start text-indigo-700">
-                <Sparkles className="h-4.5 w-4.5 shrink-0 text-indigo-600 mt-0.5" />
+              <div className="rounded-lg border border-violet-150 bg-violet-50/10 p-3 flex gap-2 items-start text-violet-700">
+                <Sparkles className="h-4.5 w-4.5 shrink-0 text-violet-600 mt-0.5" />
                 <div>
-                  <div className="font-bold">Gemini AI Model Checked</div>
-                  <div className="text-[10px] text-indigo-550 font-semibold mt-0.5">
-                    Reclassified recommendations synthesized using model '{selectedLog.model_name}' grounded in packaging evidence.
+                  <div className="font-bold">Automated Reclassification Scan</div>
+                  <div className="text-[10px] text-violet-550 font-semibold mt-0.5">
+                    Reclassified recommendations synthesized using system algorithms grounded in packaging evidence.
                   </div>
                 </div>
               </div>

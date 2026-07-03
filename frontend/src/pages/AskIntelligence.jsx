@@ -86,7 +86,7 @@ export const AskIntelligence = () => {
         ...prev,
         {
           sender: "ai",
-          answer: "AI analysis is temporarily unavailable. Check that your GEMINI_API_KEY is configured in backend environment variables.",
+          answer: "AI analysis is temporarily unavailable. Check that your API key is configured in backend environment variables.",
           keyFindings: [],
           confidence: 0.0,
           followUps: []
@@ -123,7 +123,7 @@ export const AskIntelligence = () => {
     <div className="flex flex-col h-[calc(100vh-100px)] space-y-4">
       {/* Header */}
       <div className="space-y-1 shrink-0">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gemini Workspace</span>
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">AI Workspace</span>
         <h1 className="text-xl font-black text-slate-900 tracking-tight">Ask Market Intelligence</h1>
         <p className="text-xs text-slate-500 font-semibold">
           Query benefit categories, product claims, hero ingredients, and validation audit lineages.
@@ -143,14 +143,14 @@ export const AskIntelligence = () => {
             {chatHistory.length === 0 ? (
               /* Empty state workspace */
               <div className="h-full flex flex-col items-center justify-center text-center max-w-xl mx-auto space-y-6 py-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 shadow-sm animate-bounce">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-50 text-violet-600 shadow-sm animate-bounce">
                   <Sparkles className="h-6 w-6" />
                 </div>
                 
                 <div className="space-y-2">
                   <h3 className="text-sm font-bold text-slate-800">Ask MarketPulse AI Copilot</h3>
                   <p className="text-xs text-slate-400 font-semibold leading-relaxed">
-                    Submit natural language queries grounded directly in catalog records. Gemini AI will synthesize observations backed by verified SQL aggregates.
+                    Submit natural language queries grounded directly in catalog records. The AI engine will synthesize observations backed by verified SQL aggregates.
                   </p>
                 </div>
 
@@ -160,7 +160,7 @@ export const AskIntelligence = () => {
                     <button
                       key={idx}
                       onClick={() => handleSuggestClick(s.q)}
-                      className="flex flex-col items-start rounded-lg border border-slate-200 bg-white p-3 text-left hover:bg-indigo-50/50 hover:border-indigo-300 transition-all cursor-pointer"
+                      className="flex flex-col items-start rounded-lg border border-slate-200 bg-white p-3 text-left hover:bg-violet-50/50 hover:border-violet-300 transition-all cursor-pointer"
                     >
                       <span className="text-[11px] font-bold text-slate-800 leading-snug">{s.title}</span>
                       <p className="text-[9px] text-slate-400 font-semibold truncate w-full mt-0.5">{s.q}</p>
@@ -178,12 +178,12 @@ export const AskIntelligence = () => {
                   >
                     {/* Bot avatar */}
                     {msg.sender === "ai" && (
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white font-bold text-xs shadow-md shadow-indigo-100">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white font-bold text-xs shadow-md shadow-violet-100">
                         M
                       </div>
                     )}
 
-                    <div className={`space-y-4 max-w-xl rounded-2xl p-4 text-xs leading-relaxed ${msg.sender === "user" ? "bg-indigo-600 text-white" : "bg-slate-50 border border-slate-100 text-slate-850"}`}>
+                    <div className={`space-y-4 max-w-xl rounded-2xl p-4 text-xs leading-relaxed ${msg.sender === "user" ? "bg-violet-600 text-white" : "bg-slate-50 border border-slate-100 text-slate-850"}`}>
                       {msg.sender === "user" ? (
                         <p className="font-bold">{msg.text}</p>
                       ) : (
@@ -194,24 +194,24 @@ export const AskIntelligence = () => {
                           {/* Render findings cards */}
                           {msg.keyFindings.length > 0 && (
                             <div className="space-y-2 pt-2 border-t border-slate-200/50">
-                              <span className="text-[9px] font-bold text-indigo-600 uppercase tracking-wider">Key data findings</span>
+                              <span className="text-[9px] font-bold text-violet-600 uppercase tracking-wider">Key data findings</span>
                               <div className="grid grid-cols-1 gap-2.5">
                                 {msg.keyFindings.map((finding, fIdx) => (
                                   <div
                                     key={fIdx}
                                     onClick={() => handleFindingClick(finding.evidence_ids)}
-                                    className="flex items-start justify-between gap-3 rounded-lg border border-slate-200 bg-white p-3 hover:border-indigo-400 cursor-pointer shadow-xs"
+                                    className="flex items-start justify-between gap-3 rounded-lg border border-slate-200 bg-white p-3 hover:border-violet-400 cursor-pointer shadow-xs"
                                   >
                                     <div className="space-y-1">
                                       <h4 className="font-bold text-slate-900 leading-snug">{finding.title}</h4>
                                       <p className="text-[10px] text-slate-500 font-semibold">{finding.finding}</p>
                                       {finding.evidence_ids?.length > 0 && (
-                                        <div className="text-[9px] text-indigo-500 font-bold uppercase tracking-wider mt-1">
+                                        <div className="text-[9px] text-violet-500 font-bold uppercase tracking-wider mt-1">
                                           Click to highlight {finding.evidence_ids.length} evidence lines
                                         </div>
                                       )}
                                     </div>
-                                    <span className="rounded bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700 whitespace-nowrap shrink-0">
+                                    <span className="rounded bg-violet-50 px-2 py-0.5 text-[10px] font-bold text-violet-700 whitespace-nowrap shrink-0">
                                       {finding.metric}
                                     </span>
                                   </div>
@@ -224,7 +224,7 @@ export const AskIntelligence = () => {
                           <div className="flex items-center gap-3 pt-2 text-[9px] font-bold text-slate-400">
                             <span>Confidence: {formatPercent(msg.confidence)}</span>
                             <span>&bull;</span>
-                            <span>Model: gemini-2.5-flash</span>
+                            <span>Engine: Advanced Language Model</span>
                           </div>
 
                           {/* Follow-up question chips */}
@@ -234,7 +234,7 @@ export const AskIntelligence = () => {
                                 <button
                                   key={fqIdx}
                                   onClick={() => handleSuggestClick(fq)}
-                                  className="rounded-full bg-white border border-slate-200 hover:border-indigo-400 px-3 py-1 text-[10px] font-semibold text-slate-600 hover:text-indigo-700 cursor-pointer transition-colors shadow-xs"
+                                  className="rounded-full bg-white border border-slate-200 hover:border-violet-400 px-3 py-1 text-[10px] font-semibold text-slate-600 hover:text-violet-700 cursor-pointer transition-colors shadow-xs"
                                 >
                                   {fq}
                                 </button>
@@ -250,11 +250,11 @@ export const AskIntelligence = () => {
                 {/* Loading indicator */}
                 {loading && (
                   <div className="flex gap-4 justify-start">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white font-bold text-xs shadow-md">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-600 text-white font-bold text-xs shadow-md">
                       M
                     </div>
                     <div className="rounded-2xl bg-slate-50 border border-slate-100 p-4 text-xs text-slate-500 flex items-center gap-2">
-                      <div className="h-3 w-3 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
+                      <div className="h-3 w-3 animate-spin rounded-full border-2 border-violet-600 border-t-transparent"></div>
                       Grounding data findings...
                     </div>
                   </div>
@@ -268,11 +268,11 @@ export const AskIntelligence = () => {
           <div className="border-t border-slate-200 p-4 bg-slate-50/50">
             <form 
               onSubmit={(e) => { e.preventDefault(); handleSendQuery(); }}
-              className="flex items-center gap-2 bg-white border border-slate-250 rounded-lg px-3 py-2 focus-within:border-indigo-600 transition-colors shadow-xs"
+              className="flex items-center gap-2 bg-white border border-slate-250 rounded-lg px-3 py-2 focus-within:border-violet-600 transition-colors shadow-xs"
             >
               <input
                 type="text"
-                placeholder="Ask Gemini about category momentum, top ingredients, claims or reclassifications..."
+                placeholder="Ask AI about category momentum, top ingredients, claims or reclassifications..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 disabled={loading}
@@ -281,7 +281,7 @@ export const AskIntelligence = () => {
               <button
                 type="submit"
                 disabled={loading || !query.trim()}
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-30 cursor-pointer shadow-sm"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-30 cursor-pointer shadow-sm"
               >
                 <Send className="h-4 w-4" />
               </button>
@@ -311,7 +311,7 @@ export const AskIntelligence = () => {
                     key={ev.id}
                     className={`rounded-lg border p-3 space-y-2 transition-all duration-200 shadow-xs ${
                       isHighlighted 
-                        ? "border-indigo-500 bg-indigo-50/20 ring-1 ring-indigo-500" 
+                        ? "border-violet-500 bg-violet-50/20 ring-1 ring-violet-500" 
                         : "border-slate-200 bg-slate-50/30 hover:border-slate-350"
                     }`}
                   >
@@ -326,7 +326,7 @@ export const AskIntelligence = () => {
                       <span className="truncate max-w-[120px]">{ev.product_name}</span>
                       <button 
                         onClick={() => navigate(`/products/${ev.product_id}`)}
-                        className="text-indigo-600 hover:text-indigo-800 flex items-center gap-0.5 cursor-pointer font-bold"
+                        className="text-violet-600 hover:text-violet-800 flex items-center gap-0.5 cursor-pointer font-bold"
                       >
                         Inspect <ArrowRight className="h-3 w-3" />
                       </button>

@@ -69,7 +69,7 @@ export const Header = ({ onSearchClick }) => {
         {/* AI Status Indicator */}
         {aiStatus.checked && (
           <div 
-            title={aiStatus.configured ? "Gemini 2.5 Flash connected and ready." : "Gemini API key missing. Running in offline/mock mode."}
+            title={aiStatus.configured ? "AI Engine connected and ready." : "AI configuration missing. Running in offline/mock mode."}
             className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
               aiStatus.configured 
                 ? "bg-emerald-50 text-emerald-700 border border-emerald-100" 
@@ -87,7 +87,7 @@ export const Header = ({ onSearchClick }) => {
           className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors shadow-sm"
         >
           <Bell className="h-4 w-4" />
-          <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-indigo-600"></span>
+          <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-violet-600"></span>
         </button>
       </div>
     </header>

@@ -32,7 +32,7 @@ export const AttributionChart = ({ data }) => {
           <p className="text-xs font-bold text-slate-800 leading-snug">{dataPoint.name}</p>
           <div className="mt-1 space-y-0.5 text-[11px] font-medium text-slate-500">
             <p>Attributed Revenue: <span className="text-slate-800 font-bold">{formatCurrency(dataPoint.value)}</span></p>
-            <p>Weight: <span className="text-indigo-600 font-semibold">{(dataPoint.weight * 100).toFixed(0)}%</span></p>
+            <p>Weight: <span className="text-violet-600 font-semibold">{(dataPoint.weight * 100).toFixed(0)}%</span></p>
           </div>
         </div>
       );

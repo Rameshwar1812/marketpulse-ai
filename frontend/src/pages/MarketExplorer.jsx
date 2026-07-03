@@ -95,7 +95,7 @@ export const MarketExplorer = () => {
   if (loading && !overview) {
     return (
       <div className="flex h-64 items-center justify-center text-xs text-slate-500 gap-2">
-        <div className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-600 border-t-transparent"></div>
         Compiling market landscape...
       </div>
     );
@@ -123,7 +123,7 @@ export const MarketExplorer = () => {
           <select 
             value={selectedCategoryFilter}
             onChange={(e) => setSelectedCategoryFilter(e.target.value)}
-            className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-600 outline-hidden focus:border-indigo-600 cursor-pointer"
+            className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-600 outline-hidden focus:border-violet-600 cursor-pointer"
           >
             <option value="all">All Categories</option>
             {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -172,12 +172,12 @@ export const MarketExplorer = () => {
                       <td className="py-3 text-right text-slate-700 font-semibold">{cov.product_count} products</td>
                       <td className="py-3 text-right">{formatCurrency(cov.revenue)}</td>
                       <td className="py-3 text-right">
-                        <span className="inline-flex items-center rounded-sm bg-indigo-50 px-1.5 py-0.2 text-[10px] font-bold text-indigo-700 border border-indigo-150">
+                        <span className="inline-flex items-center rounded-sm bg-violet-50 px-1.5 py-0.2 text-[10px] font-bold text-violet-700 border border-violet-150">
                           {cov.momentum}
                         </span>
                       </td>
                       <td className="py-3 pr-3 text-right">
-                        <button className="inline-flex items-center gap-0.5 text-[11px] font-bold text-indigo-600 hover:text-indigo-800 cursor-pointer">
+                        <button className="inline-flex items-center gap-0.5 text-[11px] font-bold text-violet-600 hover:text-violet-800 cursor-pointer">
                           Analyze <ChevronRight className="h-3 w-3" />
                         </button>
                       </td>
@@ -221,7 +221,7 @@ export const MarketExplorer = () => {
       >
         {loadingCategoryDetail ? (
           <div className="flex h-32 items-center justify-center text-xs text-slate-500 gap-2">
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-600 border-t-transparent"></div>
             Retrieving category indices...
           </div>
         ) : selectedCategoryDetail ? (
@@ -244,7 +244,7 @@ export const MarketExplorer = () => {
               </div>
               <div className="rounded-lg border border-slate-150 p-3 text-center bg-white">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Avg Momentum</span>
-                <p className="text-lg font-black text-indigo-600 mt-1">{selectedCategoryDetail.avg_momentum}</p>
+                <p className="text-lg font-black text-violet-600 mt-1">{selectedCategoryDetail.avg_momentum}</p>
               </div>
             </div>
 
@@ -260,7 +260,7 @@ export const MarketExplorer = () => {
                     </div>
                     <div className="text-right">
                       <div className="text-slate-800">{formatCurrency(p.revenue)}</div>
-                      <div className="text-[10px] text-indigo-600">Momentum: {p.momentum}</div>
+                      <div className="text-[10px] text-violet-600">Momentum: {p.momentum}</div>
                     </div>
                   </div>
                 ))}
@@ -283,7 +283,7 @@ export const MarketExplorer = () => {
                 <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Top Claims</h4>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedCategoryDetail.top_claims.map((c) => (
-                    <span key={c.claim} className="rounded-md bg-indigo-50/50 border border-indigo-100 px-2 py-0.5 text-[10px] font-semibold text-indigo-700">
+                    <span key={c.claim} className="rounded-md bg-violet-50/50 border border-violet-100 px-2 py-0.5 text-[10px] font-semibold text-violet-700">
                       "{c.claim}" ({c.count})
                     </span>
                   ))}
@@ -297,13 +297,13 @@ export const MarketExplorer = () => {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
-                  <Sparkles className="h-4 w-4 text-indigo-600" />
-                  <span>Gemini Segment Analysis</span>
+                  <Sparkles className="h-4 w-4 text-violet-600" />
+                  <span>AI Segment Analysis</span>
                 </div>
                 <button
                   onClick={() => handleInterpretCategory(selectedCategoryDetail.id)}
                   disabled={interpretingAI}
-                  className="flex items-center gap-1 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 cursor-pointer shadow-sm disabled:opacity-50"
+                  className="flex items-center gap-1 rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-violet-700 cursor-pointer shadow-sm disabled:opacity-50"
                 >
                   <Sparkles className="h-3.5 w-3.5" />
                   Interpret Segment
@@ -312,13 +312,13 @@ export const MarketExplorer = () => {
 
               {interpretingAI ? (
                 <div className="flex h-32 items-center justify-center text-xs text-slate-500 gap-2 border border-dashed border-slate-200 rounded-lg">
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
-                  Querying Gemini 2.5 Flash...
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-600 border-t-transparent"></div>
+                  Analyzing market segment...
                 </div>
               ) : aiInterpretation ? (
-                <div className="rounded-lg border border-indigo-150 bg-indigo-50/10 p-4 space-y-4 text-xs">
+                <div className="rounded-lg border border-violet-150 bg-violet-50/10 p-4 space-y-4 text-xs">
                   <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-indigo-600 uppercase tracking-wider">AI Executive Interpretation</span>
+                    <span className="text-[9px] font-bold text-violet-600 uppercase tracking-wider">AI Executive Interpretation</span>
                     <p className="font-semibold text-slate-700 leading-relaxed italic">
                       "{aiInterpretation.summary}"
                     </p>
@@ -347,7 +347,7 @@ export const MarketExplorer = () => {
                 </div>
               ) : (
                 <div className="rounded-lg border border-dashed border-slate-200 p-8 text-center text-xs text-slate-400 font-semibold">
-                  Click 'Interpret Segment' to generate dynamic growth findings, underserved niches, and category gaps from Gemini.
+                  Click 'Interpret Segment' to generate dynamic growth findings, underserved niches, and category gaps.
                 </div>
               )}
             </div>

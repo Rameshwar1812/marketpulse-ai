@@ -110,7 +110,7 @@ export const DataSources = () => {
       {/* Grid: 4 Source Ingestion Cards */}
       {loading ? (
         <div className="flex h-32 items-center justify-center text-xs text-slate-500 gap-2">
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-600 border-t-transparent"></div>
           Syncing sources metadata...
         </div>
       ) : (
@@ -120,7 +120,7 @@ export const DataSources = () => {
             return (
               <div key={src.id} className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 hover:shadow-xs transition-shadow">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-50 text-violet-600">
                     <Icon className="h-4.5 w-4.5" />
                   </div>
                   <span className={`rounded-full px-2 py-0.2 text-[8px] font-bold uppercase tracking-wider ${
@@ -178,7 +178,7 @@ export const DataSources = () => {
               <button
                 type="submit"
                 disabled={uploading}
-                className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-indigo-600 py-2 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-50 cursor-pointer shadow-sm"
+                className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-violet-600 py-2 text-xs font-bold text-white hover:bg-violet-700 disabled:opacity-50 cursor-pointer shadow-sm"
               >
                 {uploading ? (
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
@@ -238,7 +238,7 @@ export const DataSources = () => {
                   </button>
                   <button
                     onClick={handleConfirmImport}
-                    className="flex items-center gap-1 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 cursor-pointer shadow-sm"
+                    className="flex items-center gap-1 rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-violet-700 cursor-pointer shadow-sm"
                   >
                     <ShieldCheck className="h-3.5 w-3.5" />
                     Confirm Import

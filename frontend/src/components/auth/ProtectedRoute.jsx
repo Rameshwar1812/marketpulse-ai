@@ -10,7 +10,7 @@ export const ProtectedRoute = ({ children, allowedRoles }) => {
     return (
       <div className="flex h-screen w-screen items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-2">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-violet-600 border-t-transparent"></div>
           <p className="text-sm font-medium text-slate-500">Restoring session...</p>
         </div>
       </div>

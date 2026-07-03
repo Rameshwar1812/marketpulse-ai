@@ -29,7 +29,7 @@ export const IngredientChart = ({ data }) => {
           <p className="text-xs font-bold text-slate-800">{payload[0].payload.name}</p>
           <div className="mt-1 space-y-0.5 text-[11px] font-medium text-slate-500">
             <p>Total Products: <span className="text-slate-800 font-bold">{payload[0].payload["Product Presence"]}</span></p>
-            <p>Hero Formulation: <span className="text-indigo-600 font-bold">{payload[0].payload["Hero Formulation"]}</span></p>
+            <p>Hero Formulation: <span className="text-violet-600 font-bold">{payload[0].payload["Hero Formulation"]}</span></p>
           </div>
         </div>
       );

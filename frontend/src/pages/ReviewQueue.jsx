@@ -234,7 +234,7 @@ export const ReviewQueue = () => {
                       <div>{rev.product_name}</div>
                       <div className="text-[10px] text-slate-400 font-semibold">{rev.brand_name}</div>
                     </td>
-                    <td className="py-4 font-semibold text-indigo-700">
+                    <td className="py-4 font-semibold text-violet-700">
                       {rev.ai_recommendation || "Approve current"}
                     </td>
                     <td className="py-4 text-center">
@@ -254,7 +254,7 @@ export const ReviewQueue = () => {
                       <button 
                         className={`rounded-lg px-2.5 py-1 text-[11px] font-bold cursor-pointer ${
                           rev.status === "pending" 
-                            ? "bg-indigo-600 text-white hover:bg-indigo-700" 
+                            ? "bg-violet-600 text-white hover:bg-violet-700" 
                             : "bg-slate-100 text-slate-500"
                         }`}
                       >
@@ -283,7 +283,7 @@ export const ReviewQueue = () => {
       >
         {loadingProductDetail ? (
           <div className="flex h-32 items-center justify-center text-xs text-slate-500 gap-2">
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-600 border-t-transparent"></div>
             Loading product data workspace...
           </div>
         ) : selectedProductDetail ? (
@@ -303,8 +303,8 @@ export const ReviewQueue = () => {
             </div>
 
             {/* AI Recommendation panel */}
-            <div className="rounded-lg border border-indigo-150 bg-indigo-50/10 p-4 space-y-2 text-xs">
-              <div className="flex items-center gap-1.5 font-bold text-indigo-700">
+            <div className="rounded-lg border border-violet-150 bg-violet-50/10 p-4 space-y-2 text-xs">
+              <div className="flex items-center gap-1.5 font-bold text-violet-700">
                 <Sparkles className="h-4.5 w-4.5" />
                 <span>AI Reclassification Recommendation</span>
               </div>
@@ -350,7 +350,7 @@ export const ReviewQueue = () => {
                   <button
                     onClick={() => setShowOverrideForm(!showOverrideForm)}
                     disabled={submittingAction}
-                    className="flex-1 flex items-center justify-center gap-1 rounded-lg bg-indigo-600 py-2.5 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-50 cursor-pointer shadow-sm"
+                    className="flex-1 flex items-center justify-center gap-1 rounded-lg bg-violet-600 py-2.5 text-xs font-bold text-white hover:bg-violet-700 disabled:opacity-50 cursor-pointer shadow-sm"
                   >
                     <Layers className="h-4 w-4" />
                     Override Reclassify
@@ -375,7 +375,7 @@ export const ReviewQueue = () => {
                         required
                         value={targetCategoryId}
                         onChange={(e) => setTargetCategoryId(e.target.value)}
-                        className="w-full rounded-lg border border-slate-250 bg-white py-1.5 px-2.5 text-xs font-semibold outline-hidden focus:border-indigo-600 cursor-pointer"
+                        className="w-full rounded-lg border border-slate-250 bg-white py-1.5 px-2.5 text-xs font-semibold outline-hidden focus:border-violet-600 cursor-pointer"
                       >
                         <option value="">Select Category...</option>
                         {categories.map((c) => (
@@ -392,7 +392,7 @@ export const ReviewQueue = () => {
                         placeholder="Explain compliance findings justifying reclassification override..."
                         value={overrideReason}
                         onChange={(e) => setOverrideReason(e.target.value)}
-                        className="w-full rounded-lg border border-slate-250 bg-white p-2.5 text-xs outline-hidden focus:border-indigo-600"
+                        className="w-full rounded-lg border border-slate-250 bg-white p-2.5 text-xs outline-hidden focus:border-violet-600"
                       />
                     </div>
 
@@ -402,7 +402,7 @@ export const ReviewQueue = () => {
                         required
                         checked={confirmCheckbox}
                         onChange={(e) => setConfirmCheckbox(e.target.checked)}
-                        className="rounded border-slate-350 text-indigo-600 mt-0.5"
+                        className="rounded border-slate-350 text-violet-600 mt-0.5"
                       />
                       <span>
                         I certify that this reclassification is supported by extracted claim weights and hero ingredients.
@@ -412,7 +412,7 @@ export const ReviewQueue = () => {
                     <button
                       type="submit"
                       disabled={submittingAction || !confirmCheckbox || !targetCategoryId}
-                      className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-indigo-600 py-2 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-50 shadow-sm cursor-pointer"
+                      className="w-full flex items-center justify-center gap-1.5 rounded-lg bg-violet-600 py-2 text-xs font-bold text-white hover:bg-violet-700 disabled:opacity-50 shadow-sm cursor-pointer"
                     >
                       <Save className="h-4 w-4" />
                       Submit Classification Override

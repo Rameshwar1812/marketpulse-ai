@@ -35,7 +35,7 @@ export const MetricCard = ({ title, value, subtext, trend, trendValue, icon: Ico
       <div className="flex items-center justify-between">
         <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{title}</span>
         {Icon && (
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-50 text-violet-600">
             <Icon className="h-4 w-4 shrink-0" />
           </div>
         )}

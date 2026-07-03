@@ -43,8 +43,8 @@ export const AgentWorkflow = () => {
       status: "Secured"
     },
     {
-      title: "5. Gemini-Assisted Interpretation",
-      desc: "Gemini 2.5 Flash synthesizes clean, grounded executive summaries and findings lists.",
+      title: "5. Automated Interpretation",
+      desc: "Advanced language processing models synthesize clean, grounded executive summaries and findings lists.",
       icon: LineChart,
       status: "Grounded"
     },
@@ -86,10 +86,10 @@ export const AgentWorkflow = () => {
         ))}
 
         {/* Step 3: Parallel Capabilities */}
-        <div className="w-full space-y-2.5 rounded-xl border border-indigo-150 bg-indigo-50/20 p-4">
+        <div className="w-full space-y-2.5 rounded-xl border border-violet-150 bg-violet-50/20 p-4">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider">3. Parallel Specialist Capabilities</span>
-            <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-[9px] font-bold text-indigo-700 uppercase tracking-wide">
+            <span className="text-[10px] font-bold text-violet-600 uppercase tracking-wider">3. Parallel Specialist Capabilities</span>
+            <span className="rounded-full bg-violet-100 px-2 py-0.5 text-[9px] font-bold text-violet-700 uppercase tracking-wide">
               Specialist Layer
             </span>
           </div>
@@ -98,9 +98,9 @@ export const AgentWorkflow = () => {
             {specialists.map((sp, idx) => (
               <div 
                 key={idx} 
-                className="flex flex-col gap-2 rounded-lg border border-indigo-100 bg-white p-3 hover:shadow-xs transition-shadow"
+                className="flex flex-col gap-2 rounded-lg border border-violet-100 bg-white p-3 hover:shadow-xs transition-shadow"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded bg-indigo-50 text-indigo-600">
+                <div className="flex h-7 w-7 items-center justify-center rounded bg-violet-50 text-violet-600">
                   <sp.icon className="h-4 w-4" />
                 </div>
                 <div className="space-y-0.5">
@@ -124,7 +124,7 @@ export const AgentWorkflow = () => {
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-slate-900 leading-none">{s.title}</span>
-                  <span className="rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide">
+                  <span className="rounded-full bg-violet-50 text-violet-700 border border-violet-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide">
                     {s.status}
                   </span>
                 </div>
@@ -137,7 +137,7 @@ export const AgentWorkflow = () => {
       </div>
 
       <div className="mt-5 border-t border-slate-150 pt-3 text-[10px] text-slate-400 font-semibold italic text-center">
-        Target-state workflow; prototype implementation combines SQL analytics, application services, Gemini-assisted interpretation, and human review.
+        Target-state workflow; prototype implementation combines SQL analytics, application services, automated interpretation, and human review.
       </div>
     </div>
   );

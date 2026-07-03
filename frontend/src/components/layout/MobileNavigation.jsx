@@ -16,7 +16,7 @@ export const MobileNavigation = () => {
     { name: "Overview", path: "/dashboard", icon: LayoutDashboard, roles: ["executive", "analyst", "reviewer", "admin"] },
     { name: "Explore", path: "/market-explorer", icon: Compass, roles: ["executive", "analyst", "reviewer", "admin"] },
     { name: "Products", path: "/products", icon: Package, roles: ["executive", "analyst", "reviewer", "admin"] },
-    { name: "Gemini", path: "/ask", icon: Sparkles, roles: ["executive", "analyst", "reviewer", "admin"] },
+    { name: "Ask AI", path: "/ask", icon: Sparkles, roles: ["executive", "analyst", "reviewer", "admin"] },
     { name: "Review", path: "/review", icon: FileCheck, roles: ["reviewer", "admin"] }
   ];
 
@@ -31,7 +31,7 @@ export const MobileNavigation = () => {
           className={({ isActive }) =>
             `flex flex-col items-center justify-center flex-1 py-1 text-[10px] font-bold ${
               isActive 
-                ? "text-indigo-650" 
+                ? "text-violet-650" 
                 : "text-slate-500 hover:text-slate-800"
             }`
           }

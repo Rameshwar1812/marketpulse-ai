@@ -54,7 +54,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
       {/* Brand Header */}
       <div className="flex h-16 items-center justify-between border-b border-slate-100 px-4">
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold shadow-md shadow-indigo-100">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-600 text-white font-bold shadow-md shadow-violet-100">
             M
           </div>
           {!collapsed && (
@@ -88,7 +88,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
                     className={({ isActive }) =>
                       `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 ${
                         isActive 
-                          ? "bg-indigo-50 text-indigo-700 font-semibold border-l-2 border-indigo-600 rounded-l-none" 
+                          ? "bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600 rounded-l-none" 
                           : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                       }`
                     }
@@ -116,7 +116,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
               Seeded Demo Live
             </div>
             <div>Last refresh: Today, 11:10 PM</div>
-            <div className="text-[10px] text-indigo-600 font-bold uppercase tracking-wider">Demo Environment</div>
+            <div className="text-[10px] text-violet-600 font-bold uppercase tracking-wider">Demo Environment</div>
           </div>
         )}
 
@@ -130,7 +130,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
               <div className="flex flex-col truncate">
                 <span className="text-xs font-semibold text-slate-800 truncate">{user?.full_name}</span>
                 <span className="flex items-center gap-1 text-[10px] text-slate-500 font-medium capitalize">
-                  <ShieldCheck className="h-3 w-3 text-indigo-500 shrink-0" />
+                  <ShieldCheck className="h-3 w-3 text-violet-500 shrink-0" />
                   {user?.role}
                 </span>
               </div>

@@ -107,7 +107,7 @@ export const ProductDetail = () => {
     return (
       <div className="py-12 text-center text-xs text-slate-500 space-y-4">
         <p>Product not found.</p>
-        <Link to="/products" className="text-indigo-600 font-bold underline">Back to Products</Link>
+        <Link to="/products" className="text-violet-600 font-bold underline">Back to Products</Link>
       </div>
     );
   }
@@ -199,7 +199,7 @@ export const ProductDetail = () => {
             </div>
             <div className="rounded-xl border border-slate-200 bg-white p-4 text-center">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Momentum Index</span>
-              <p className="text-lg font-black text-indigo-600 mt-1">{product.momentum_score}/10</p>
+              <p className="text-lg font-black text-violet-600 mt-1">{product.momentum_score}/10</p>
             </div>
             <div className="rounded-xl border border-slate-200 bg-white p-4 text-center">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Claims Mapped</span>
@@ -226,7 +226,7 @@ export const ProductDetail = () => {
                     <div className="flex flex-wrap items-center gap-2 text-[10px] text-slate-400 font-semibold">
                       <span>Normalized claim: <strong>{claim.normalized_claim}</strong></span>
                       <span>&bull;</span>
-                      <span className="rounded bg-indigo-50 text-indigo-700 px-1.5 py-0.2">Confidence: {(claim.confidence * 100).toFixed(0)}%</span>
+                      <span className="rounded bg-violet-50 text-violet-700 px-1.5 py-0.2">Confidence: {(claim.confidence * 100).toFixed(0)}%</span>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
@@ -248,11 +248,11 @@ export const ProductDetail = () => {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
               {product.ingredients.map((ing) => (
-                <div key={ing.ingredient_id} className={`rounded-xl border p-4 space-y-2 hover:shadow-xs transition-shadow ${ing.is_hero ? 'border-indigo-200 bg-indigo-50/10' : 'border-slate-200 bg-white'}`}>
+                <div key={ing.ingredient_id} className={`rounded-xl border p-4 space-y-2 hover:shadow-xs transition-shadow ${ing.is_hero ? 'border-violet-200 bg-violet-50/10' : 'border-slate-200 bg-white'}`}>
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-slate-800 truncate pr-2">{ing.name}</span>
                     {ing.is_hero && (
-                      <span className="rounded-full bg-indigo-100 px-2 py-0.2 text-[8px] font-bold text-indigo-700 uppercase tracking-wider shrink-0">
+                      <span className="rounded-full bg-violet-100 px-2 py-0.2 text-[8px] font-bold text-violet-700 uppercase tracking-wider shrink-0">
                         Hero
                       </span>
                     )}
@@ -277,7 +277,7 @@ export const ProductDetail = () => {
               <button
                 onClick={handleAnalyzeClassification}
                 disabled={analyzingAI}
-                className="flex items-center gap-1 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 cursor-pointer shadow-sm disabled:opacity-50"
+                className="flex items-center gap-1 rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-violet-700 cursor-pointer shadow-sm disabled:opacity-50"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Analyze Classification
@@ -293,9 +293,9 @@ export const ProductDetail = () => {
               <div className="text-slate-300 font-bold flex justify-center py-2 md:py-0">
                 <ArrowRight className="h-5 w-5 transform rotate-90 md:rotate-0" />
               </div>
-              <div className="rounded-lg border border-indigo-200 p-3 bg-indigo-50/15">
-                <span className="text-[9px] font-bold text-indigo-600 uppercase tracking-wider">AI Recommendation</span>
-                <p className="text-xs font-black text-indigo-700 mt-1">
+              <div className="rounded-lg border border-violet-200 p-3 bg-violet-50/15">
+                <span className="text-[9px] font-bold text-violet-600 uppercase tracking-wider">AI Recommendation</span>
+                <p className="text-xs font-black text-violet-700 mt-1">
                   {classificationAnalysis ? classificationAnalysis.recommended_category : `${product.category_name} (Calculated)`}
                 </p>
               </div>
@@ -304,13 +304,13 @@ export const ProductDetail = () => {
             {/* Analyze classification AI feedback */}
             {analyzingAI ? (
               <div className="flex h-24 items-center justify-center text-xs text-slate-500 gap-2 border border-dashed border-slate-200 rounded-lg">
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent"></div>
-                Gemini classification check...
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-600 border-t-transparent"></div>
+                Automated classification check...
               </div>
             ) : classificationAnalysis ? (
-              <div className="rounded-lg border border-indigo-150 bg-indigo-50/10 p-4 space-y-3 text-xs leading-relaxed">
+              <div className="rounded-lg border border-violet-150 bg-violet-50/10 p-4 space-y-3 text-xs leading-relaxed">
                 <div>
-                  <span className="text-[9px] font-bold text-indigo-600 uppercase tracking-wider">AI Classification Reasoning</span>
+                  <span className="text-[9px] font-bold text-violet-600 uppercase tracking-wider">AI Classification Reasoning</span>
                   <p className="font-semibold text-slate-700 mt-0.5">
                     {classificationAnalysis.reasoning}
                   </p>
@@ -318,7 +318,7 @@ export const ProductDetail = () => {
                 <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold">
                   <span>Reclassified confidence: {(classificationAnalysis.confidence * 100).toFixed(0)}%</span>
                   <span>&bull;</span>
-                  <span className="text-indigo-600">Reclassification requires manual Reviewer Override click in Governance queue.</span>
+                  <span className="text-violet-600">Reclassification requires manual Reviewer Override click in Governance queue.</span>
                 </div>
               </div>
             ) : null}
@@ -388,7 +388,7 @@ export const ProductDetail = () => {
                   </div>
                   <h4 className="text-xs font-bold text-slate-800">{step.details}</h4>
                   {step.confidence < 1.0 && (
-                    <div className="text-[10px] text-indigo-500 font-bold">Extraction Confidence: {(step.confidence * 100).toFixed(0)}%</div>
+                    <div className="text-[10px] text-violet-500 font-bold">Extraction Confidence: {(step.confidence * 100).toFixed(0)}%</div>
                   )}
                 </div>
               ))}
