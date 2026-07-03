@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { 
@@ -18,6 +18,7 @@ import {
 
 export const Sidebar = ({ collapsed, setCollapsed }) => {
   const { user, logout, hasRole } = useAuth();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const navigation = [
     {
@@ -137,9 +138,9 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
           </div>
           
           <button
-            onClick={logout}
+            onClick={() => setShowLogoutConfirm(true)}
             title="Log Out"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
           >
             <LogOut className="h-4 w-4" />
           </button>
@@ -153,6 +154,33 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
           {collapsed ? <ChevronRight className="h-4 w-4" /> : <><ChevronLeft className="h-4 w-4" /> Collapse</>}
         </button>
       </div>
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 select-none">
+          <div className="w-full max-w-sm bg-white rounded-xl border border-slate-200 p-6 shadow-xl space-y-4 animate-scale-in">
+            <div className="space-y-1">
+              <h3 className="text-base font-black text-slate-900 tracking-tight">Confirm Logout</h3>
+              <p className="text-xs text-slate-500 font-semibold leading-relaxed">
+                Are you sure you want to end your current session and return to the login screen?
+              </p>
+            </div>
+            
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-bold text-slate-650 hover:bg-slate-50 cursor-pointer transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={logout}
+                className="rounded-lg bg-violet-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-violet-750 cursor-pointer shadow-sm transition-colors"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 };
