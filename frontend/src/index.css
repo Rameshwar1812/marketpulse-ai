@@ -1,20 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* Soft, highly visible light violet tints for panel/icon backgrounds */
-  --color-violet-50: #f7f4fd;
-  --color-violet-100: #f1eafd;
-  --color-violet-250: #e5d5fc;
-  --color-violet-200: #e5d5fc;
+  /* Soft, standard light violet tints for high readability and contrast */
+  --color-violet-50: #f5f3ff;
+  --color-violet-100: #ede9fe;
+  --color-violet-200: #ddd6fe;
   
-  /* Vibrant medium-dark violet brand tones from the image */
-  --color-violet-500: #520380; /* Indigo tone from image (#520380) */
-  --color-violet-600: #520380; /* Indigo tone from image (#520380) */
-  --color-violet-750: #3a025b; /* Russian violet tone from image (#3a025b) */
-  --color-violet-700: #3a025b; /* Russian violet tone from image (#3a025b) */
-  --color-violet-800: #220135; /* Lighter dark purple from image (#220135) */
+  /* Medium brightness violet brand accent */
+  --color-violet-500: #6d28d9; /* Medium brightness violet */
+  --color-violet-600: #6d28d9; /* Medium brightness violet */
   
-  --color-brand-violet: #520380;
+  /* Darker violet accents derived from the top tones of the image */
+  --color-violet-750: #520380; /* Indigo tone from image (#520380) */
+  --color-violet-700: #520380; /* Indigo tone from image (#520380) */
+  --color-violet-800: #3a025b; /* Russian violet tone from image (#3a025b) */
+  --color-violet-950: #11001c; /* Deep dark purple from image (#11001c) */
+  
+  --color-brand-violet: #6d28d9;
   --color-brand-teal: #0d9488;
   --color-bg-light: #f8fafc;
   --color-surface-card: #ffffff;
@@ -40,9 +42,9 @@ body {
   background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #520380;
+  background: #6d28d9;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a025b;
+  background: #520380;
 }
