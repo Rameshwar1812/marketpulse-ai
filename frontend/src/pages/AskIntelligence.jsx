@@ -12,6 +12,7 @@ import {
   Info
 } from "lucide-react";
 import { api } from "../services/api";
+import { useToast } from "../context/ToastContext";
 import { DemoDataNotice } from "../components/common/DemoDataNotice";
 import { formatPercent } from "../utils/formatters";
 
@@ -19,6 +20,7 @@ export const AskIntelligence = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const initialQuestion = searchParams.get("q") || "";
+  const toast = useToast();
 
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -69,6 +71,7 @@ export const AskIntelligence = () => {
       };
 
       setChatHistory((prev) => [...prev, aiMsg]);
+      toast.success("AI analysis complete.");
       
       // Update evidence sidebar
       if (res.evidence && res.evidence.length > 0) {
@@ -78,6 +81,7 @@ export const AskIntelligence = () => {
       }
     } catch (e) {
       console.error("AI chat query failed", e);
+      toast.error("Failed to query intelligence engine.");
       setChatHistory((prev) => [
         ...prev,
         {

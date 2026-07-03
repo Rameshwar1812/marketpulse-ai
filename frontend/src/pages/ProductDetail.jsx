@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { api } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { ConfidenceBadge } from "../components/common/ConfidenceBadge";
 import { StatusBadge } from "../components/common/StatusBadge";
 import { AttributionChart } from "../components/charts/AttributionChart";
@@ -31,6 +32,7 @@ export const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user, hasRole } = useAuth();
+  const toast = useToast();
 
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
@@ -42,7 +44,6 @@ export const ProductDetail = () => {
 
   // General review queue states for this page
   const [submittingReview, setSubmittingReview] = useState(false);
-  const [reviewStatusMessage, setReviewStatusMessage] = useState("");
 
   const loadProductData = async () => {
     setLoading(true);
@@ -70,8 +71,10 @@ export const ProductDetail = () => {
     try {
       const res = await api.post(`/api/products/${product.id}/analyze-classification`);
       setClassificationAnalysis(res);
+      toast.success("AI reclassification analysis completed successfully.");
     } catch (e) {
       console.error("AI analysis failed", e);
+      toast.error("Failed to run AI classification analysis.");
     } finally {
       setAnalyzingAI(false);
     }
@@ -86,12 +89,11 @@ export const ProductDetail = () => {
       if (product.review_status === "pending") {
         navigate("/review");
       } else {
-        // Flag for review simulation
-        setReviewStatusMessage("Compliance review request submitted. Item queued for human governance verification.");
-        setTimeout(() => setReviewStatusMessage(""), 4000);
+        toast.success("Compliance review request submitted. Queued for human governance.");
       }
     } catch (e) {
       console.error("Failed to request review", e);
+      toast.error("Failed to submit compliance review request.");
     } finally {
       setSubmittingReview(false);
     }
@@ -149,12 +151,7 @@ export const ProductDetail = () => {
 
       <DemoDataNotice />
 
-      {reviewStatusMessage && (
-        <div className="flex items-center gap-2 rounded-lg border border-emerald-100 bg-emerald-50 px-4 py-2.5 text-xs text-emerald-700 font-semibold animate-fade-in">
-          <CheckCircle className="h-4 w-4 text-emerald-600" />
-          <span>{reviewStatusMessage}</span>
-        </div>
-      )}
+
 
       {/* Two Column Layout: Left Sticky details / Right detailed sections */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">

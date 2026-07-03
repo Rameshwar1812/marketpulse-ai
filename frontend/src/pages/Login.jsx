@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { Lock, Mail, AlertTriangle, Eye, EyeOff, User } from "lucide-react";
 
 export const Login = ({ defaultRegister = false }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, register, isAuthenticated } = useAuth();
+  const toast = useToast();
 
   // Mode state
   const [isRegister, setIsRegister] = useState(defaultRegister);
@@ -43,39 +45,49 @@ export const Login = ({ defaultRegister = false }) => {
     if (isRegister) {
       if (!fullName || !email || !password || !confirmPassword) {
         setError("Please fill in all register fields.");
+        toast.error("Please fill in all register fields.");
         return;
       }
       if (password !== confirmPassword) {
         setError("Passwords do not match.");
+        toast.error("Passwords do not match.");
         return;
       }
       if (password.length < 6) {
         setError("Password must be at least 6 characters.");
+        toast.error("Password must be at least 6 characters.");
         return;
       }
 
       setLoading(true);
       try {
         await register(fullName, email, password);
+        toast.success("Account created successfully! Welcome to MarketPulse AI.");
         navigate("/dashboard", { replace: true });
       } catch (err) {
-        setError(err.message || "Failed to create account. Email may already be registered.");
+        const errMsg = err.message || "Failed to create account. Email may already be registered.";
+        setError(errMsg);
+        toast.error(errMsg);
       } finally {
         setLoading(false);
       }
     } else {
       if (!email || !password) {
         setError("Please fill in all credential fields.");
+        toast.error("Please fill in all credential fields.");
         return;
       }
 
       setLoading(true);
       try {
         await login(email, password);
+        toast.success("Welcome back! Successfully signed in.");
         const from = location.state?.from?.pathname || "/dashboard";
         navigate(from, { replace: true });
       } catch (err) {
-        setError(err.message || "Invalid email or password. Please verify your credentials.");
+        const errMsg = err.message || "Invalid email or password. Please verify your credentials.";
+        setError(errMsg);
+        toast.error(errMsg);
       } finally {
         setLoading(false);
       }
