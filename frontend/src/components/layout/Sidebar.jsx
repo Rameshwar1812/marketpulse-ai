@@ -88,7 +88,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
                     className={({ isActive }) =>
                       `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 ${
                         isActive 
-                          ? "bg-violet-600 text-white font-semibold border-l-2 border-violet-500 rounded-l-none" 
+                          ? "bg-violet-50 text-violet-700 font-semibold border-l-2 border-violet-600 rounded-l-none" 
                           : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                       }`
                     }

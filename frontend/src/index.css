@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* Override light violet colors to use the dark violet brand tones from the image */
-  --color-violet-50: #220135;  /* Dark violet tone instead of light violet */
-  --color-violet-100: #1a0129; /* Dark violet tone instead of light violet */
-  --color-violet-200: #11001c; /* Dark violet tone instead of light violet */
+  /* Soft, highly visible light violet tints for panel/icon backgrounds */
+  --color-violet-50: #f7f4fd;
+  --color-violet-100: #f1eafd;
+  --color-violet-250: #e5d5fc;
+  --color-violet-200: #e5d5fc;
   
-  --color-violet-500: #1a0129;
-  --color-violet-600: #1a0129; /* 1A0129 from image */
-  --color-violet-750: #11001c; /* 11001C from image */
-  --color-violet-700: #11001c; /* 11001C from image */
-  --color-violet-800: #0a0011;
-  --color-brand-violet: #1a0129;
+  /* Vibrant medium-dark violet brand tones from the image */
+  --color-violet-500: #520380; /* Indigo tone from image (#520380) */
+  --color-violet-600: #520380; /* Indigo tone from image (#520380) */
+  --color-violet-750: #3a025b; /* Russian violet tone from image (#3a025b) */
+  --color-violet-700: #3a025b; /* Russian violet tone from image (#3a025b) */
+  --color-violet-800: #220135; /* Lighter dark purple from image (#220135) */
+  
+  --color-brand-violet: #520380;
   --color-brand-teal: #0d9488;
   --color-bg-light: #f8fafc;
   --color-surface-card: #ffffff;
@@ -37,9 +40,9 @@ body {
   background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1a0129;
+  background: #520380;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #11001c;
+  background: #3a025b;
 }
