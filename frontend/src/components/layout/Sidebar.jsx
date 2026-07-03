@@ -105,20 +105,7 @@ export const Sidebar = ({ collapsed, setCollapsed }) => {
 
       {/* Sidebar Footer */}
       <div className="border-t border-slate-100 bg-slate-50/50 p-3 space-y-3">
-        {/* Data fresh indicator */}
-        {!collapsed && (
-          <div className="rounded-lg bg-slate-100 p-2 text-[11px] text-slate-500 font-medium space-y-1">
-            <div className="flex items-center gap-1.5 font-semibold text-slate-700">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-              </span>
-              System Active
-            </div>
-            <div>Workspace: Synced</div>
-            <div className="text-[10px] text-violet-600 font-bold uppercase tracking-wider">Production Portal</div>
-          </div>
-        )}
+
 
         {/* User Card */}
         <div className={`flex items-center justify-between ${collapsed ? "flex-col gap-2" : ""}`}>
