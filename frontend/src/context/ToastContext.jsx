@@ -41,26 +41,26 @@ export const ToastProvider = ({ children }) => {
     <ToastContext.Provider value={toast}>
       {children}
       {/* Toast Container positioned in the top right corner */}
-      <div className="fixed top-6 right-6 z-55 flex flex-col gap-3 max-w-sm w-full select-none pointer-events-none overflow-hidden">
+      <div className="fixed top-6 right-6 z-55 flex flex-col items-end gap-3 select-none pointer-events-none overflow-hidden">
         {toasts.map((t) => {
-          let bgColor = "bg-violet-600/30 backdrop-blur-md border-slate-200/50 text-violet-950";
+          let bgColor = "bg-violet-600/70 backdrop-blur-md border-slate-200/50 text-violet-950";
           let icon = <Info className="h-4.5 w-4.5 text-violet-700 shrink-0" />;
           
           if (t.type === "success") {
-            bgColor = "bg-violet-600/30 backdrop-blur-md border-emerald-500/40 text-violet-950 shadow-lg shadow-emerald-500/5";
+            bgColor = "bg-violet-600/70 backdrop-blur-md border-emerald-500/40 text-violet-950 shadow-lg shadow-emerald-500/5";
             icon = <CheckCircle className="h-4.5 w-4.5 text-emerald-700 shrink-0" />;
           } else if (t.type === "error") {
-            bgColor = "bg-violet-600/30 backdrop-blur-md border-rose-500/40 text-violet-950 shadow-lg shadow-rose-500/5";
+            bgColor = "bg-violet-600/70 backdrop-blur-md border-rose-500/40 text-violet-950 shadow-lg shadow-rose-500/5";
             icon = <AlertTriangle className="h-4.5 w-4.5 text-rose-700 shrink-0" />;
           } else if (t.type === "info") {
-            bgColor = "bg-violet-600/30 backdrop-blur-md border-violet-500/40 text-violet-950 shadow-lg shadow-violet-500/5";
+            bgColor = "bg-violet-600/70 backdrop-blur-md border-violet-500/40 text-violet-950 shadow-lg shadow-violet-500/5";
             icon = <Info className="h-4.5 w-4.5 text-violet-700 shrink-0" />;
           }
 
           return (
             <div
               key={t.id}
-              className={`flex items-start gap-3 rounded-xl border p-4 shadow-lg pointer-events-auto transition-all duration-300 ease-out ${
+              className={`flex items-start gap-3 rounded-xl border p-4 shadow-lg pointer-events-auto transition-all duration-300 ease-out w-fit max-w-sm ${
                 t.isExiting ? "animate-toast-exit" : "animate-toast-enter"
               } ${bgColor}`}
             >
