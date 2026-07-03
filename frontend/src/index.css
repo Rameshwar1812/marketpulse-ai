@@ -1,7 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-violet: #6d28d9;
+  /* Override violet colors to use the exact brand tones from the image */
+  --color-violet-50: #fcfaff;
+  --color-violet-100: #f3ebfc;
+  --color-violet-200: #e7d6fa;
+  --color-violet-500: #1a0129;
+  --color-violet-600: #1a0129; /* 1A0129 from image */
+  --color-violet-750: #11001c; /* 11001C from image */
+  --color-violet-700: #11001c; /* 11001C from image */
+  --color-violet-800: #0a0011;
+  --color-brand-violet: #1a0129;
   --color-brand-teal: #0d9488;
   --color-bg-light: #f8fafc;
   --color-surface-card: #ffffff;
@@ -18,18 +27,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbars for data tables and panels */
+/* Custom scrollbars matching the dark purple theme */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #1a0129;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #11001c;
 }
