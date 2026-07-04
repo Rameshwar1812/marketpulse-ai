@@ -154,7 +154,6 @@ export const Products = () => {
               <option value="revenue_asc">Revenue: Low to High</option>
               <option value="momentum_desc">Momentum: High to Low</option>
               <option value="momentum_asc">Momentum: Low to High</option>
-              <option value="confidence_desc">AI Confidence: High to Low</option>
             </select>
 
             {/* View Mode Toggle Buttons */}
@@ -202,17 +201,6 @@ export const Products = () => {
           </select>
 
           <select 
-            value={minConfidence} 
-            onChange={(e) => setMinConfidence(e.target.value)}
-            className="rounded-lg border border-slate-150 px-2 py-1 text-[11px] font-semibold text-slate-600 outline-hidden cursor-pointer"
-          >
-            <option value="">AI Confidence: Any</option>
-            <option value="0.85">High (&gt;85%)</option>
-            <option value="0.70">Medium (&gt;70%)</option>
-            <option value="0.0">Low (&lt;70%)</option>
-          </select>
-
-          <select 
             value={reviewStatus} 
             onChange={(e) => setReviewStatus(e.target.value)}
             className="rounded-lg border border-slate-150 px-2 py-1 text-[11px] font-semibold text-slate-600 outline-hidden cursor-pointer"
@@ -242,7 +230,6 @@ export const Products = () => {
                       <th className="py-3.5">Category</th>
                       <th className="py-3.5 text-right">Illustrative Revenue</th>
                       <th className="py-3.5 text-right">Momentum</th>
-                      <th className="py-3.5 text-center">AI Confidence</th>
                       <th className="py-3.5">Compliance Status</th>
                       <th className="py-3.5 pr-4 text-center">Action</th>
                     </tr>
@@ -269,9 +256,6 @@ export const Products = () => {
                           <span className="inline-flex items-center rounded-sm bg-violet-50 px-1.5 py-0.2 text-[10px] font-bold text-violet-700 border border-violet-150">
                             {p.momentum_score}
                           </span>
-                        </td>
-                        <td className="py-4 text-center">
-                          <ConfidenceBadge confidence={p.ai_confidence} />
                         </td>
                         <td className="py-4">
                           <StatusBadge status={p.review_status} />
@@ -332,8 +316,7 @@ export const Products = () => {
                     </div>
                   </div>
 
-                  <div className="pt-2 flex items-center justify-between text-[10px]">
-                    <ConfidenceBadge confidence={p.ai_confidence} />
+                  <div className="pt-2 flex items-center justify-end text-[10px]">
                     <StatusBadge status={p.review_status} />
                   </div>
                 </div>
@@ -373,7 +356,7 @@ export const Products = () => {
           <div className="flex flex-col items-center justify-center text-center p-6 space-y-4">
             <span className="text-slate-400 font-bold">No products matched query filters.</span>
             <button 
-              onClick={() => { setSearch(""); setCategoryId(""); setBrandId(""); setMinConfidence(""); setReviewStatus(""); }} 
+              onClick={() => { setSearch(""); setCategoryId(""); setBrandId(""); setReviewStatus(""); }} 
               className="rounded-lg bg-violet-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-violet-700 cursor-pointer"
             >
               Reset Filters

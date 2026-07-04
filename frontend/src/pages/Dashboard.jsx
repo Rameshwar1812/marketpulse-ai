@@ -144,7 +144,7 @@ export const Dashboard = () => {
           <MetricCard 
             title="Products" 
             value={summaryMetrics.products_analyzed} 
-            subtext="active dataset" 
+            subtext="total products" 
             icon={Package} 
           />
           <MetricCard 
@@ -313,9 +313,9 @@ export const Dashboard = () => {
       </div>
 
       {/* Row 3: Scatter Plot matrix & Market Coverage list */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6">
         {/* Scatter Opportunity Matrix */}
-        <div className="lg:col-span-2 rounded-xl border border-slate-200 bg-white p-5 shadow-xs space-y-4">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs space-y-4">
           <div>
             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Strategic Mapping</h3>
             <p className="text-sm font-bold text-slate-800">Opportunity Matrix (Market Footprint vs. Velocity)</p>
@@ -323,54 +323,7 @@ export const Dashboard = () => {
           <OpportunityMatrix data={opportunityMatrixData} />
         </div>
 
-        {/* Market Coverage summary */}
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-xs space-y-4 flex flex-col justify-between">
-          <div className="space-y-1">
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Validation Quality</h3>
-            <p className="text-sm font-bold text-slate-800">AI Confidence Audit Coverage</p>
-          </div>
 
-          {summaryMetrics && (
-            <div className="space-y-4 flex-1 mt-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <div className="text-xs font-bold text-slate-500">Average Classification Confidence</div>
-                  <div className="text-[10px] text-slate-400 font-medium">Extracting claims accuracy</div>
-                </div>
-                <div className="text-xl font-extrabold text-violet-600">
-                  {formatPercent(summaryMetrics.avg_confidence)}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <div className="text-xs font-bold text-slate-500">Claims Mapped</div>
-                  <div className="text-[10px] text-slate-400 font-medium">Ingredients linkages</div>
-                </div>
-                <div className="text-xl font-extrabold text-slate-850">
-                  {summaryMetrics.claims_extracted}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between pb-3">
-                <div className="space-y-0.5">
-                  <div className="text-xs font-bold text-slate-500">Manual Refresh Savings</div>
-                  <div className="text-[10px] text-slate-400 font-medium">Projected workload savings</div>
-                </div>
-                <div className="text-xl font-extrabold text-emerald-600">
-                  {summaryMetrics.automation_percentage}% Saved
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div className="rounded-lg bg-violet-50/50 border border-violet-100 p-3 flex gap-2 items-start text-[11px] text-violet-700 font-medium leading-relaxed">
-            <Info className="h-4 w-4 shrink-0 text-violet-600 mt-0.5" />
-            <span>
-              Low classification confidence items (&lt;70%) are automatically routed to the Compliance Review Queue.
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );

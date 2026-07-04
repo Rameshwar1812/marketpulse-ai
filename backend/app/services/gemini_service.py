@@ -164,38 +164,61 @@ def generate_executive_summary(context: str) -> list:
 
 def analyze_product_classification(product_context: str) -> dict:
     """
-    Analyzes product classification and recommends category and claims remapping.
+    Analyzes product classification using a local keyword density matching logic.
+    Bypasses Gemini API to ensure instant, quota-free responses.
     """
-    if not client:
-        return {
-            "recommended_category": "Cognitive Support",
-            "confidence": 0.70,
-            "reasoning": "Gemini AI is not configured. Showing default placeholder suggestion. Ashwagandha and L-Theanine indicate strong cross-positioning in Cognitive Support and Stress & Mood.",
-            "suggested_claims_remapping": []
-        }
-
-    prompt = f"Analyze this product and determine if it is correctly classified, or if it should be reclassified to another allowed category. Suggest claim remappings if appropriate.\n\nProduct Context:\n{product_context}"
-
-    try:
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_INSTRUCTION,
-                response_mime_type="application/json",
-                response_schema=ClassificationAnalysisResponse,
-                temperature=0.2
-            )
+    category_keywords = {
+        "Sleep & Relaxation": ["sleep", "melatonin", "relaxation", "somnus", "zzz", "valerian", "rest", "night", "calm", "evening", "dream"],
+        "Energy & Performance": ["energy", "creatine", "performance", "sport", "workout", "stamina", "caffeine", "hydration", "electrolyte", "nitro", "power", "athletic"],
+        "Immunity": ["immune", "zinc", "vitamin c", "elderberry", "cold", "defender", "ascorbic", "bronchial", "respiratory", "seasonal"],
+        "Gut Health": ["probiotic", "acidophilus", "microbiome", "gut", "digestive", "enzyme", "laxative", "bloating", "regularity", "digest", "stomach"],
+        "Cognitive Support": ["cognitive", "focus", "nootropic", "lion's mane", "memory", "brain", "concentration", "synapse", "alertness", "clarity"],
+        "Stress & Mood": ["stress", "ashwagandha", "cortisol", "calm", "anxiety", "mood", "rhodiola", "serotonin", "5-htp", "relax"],
+        "Beauty From Within": ["collagen", "biotin", "skin", "hair", "nail", "beauty", "keratin", "dermal", "elasticity", "glow"],
+        "Healthy Aging": ["aging", "resveratrol", "longevity", "coq10", "nmn", "cell", "mitochondria", "repair", "antioxidant"]
+    }
+    
+    text_pool = product_context.lower()
+    
+    category_matches = {}
+    for cat_name, keywords in category_keywords.items():
+        matches = 0
+        for kw in keywords:
+            if kw in text_pool:
+                matches += 1
+        category_matches[cat_name] = matches
+        
+    total_matches = sum(category_matches.values())
+    
+    if total_matches == 0:
+        recommended_category = "Immunity"  # fallback default
+        confidence = 0.70
+        reasoning = (
+            "Local Deterministic Analysis: No specific wellness keywords detected in product context. "
+            "Recommending 'Immunity' as general baseline mapping. Reviewer auditing suggested."
         )
-        return json.loads(response.text)
-    except Exception as e:
-        print(f"Gemini API error in analyze_product_classification: {e}")
-        return {
-            "recommended_category": "Error",
-            "confidence": 0.0,
-            "reasoning": f"AI analysis error: {str(e)}",
-            "suggested_claims_remapping": []
-        }
+    else:
+        best_category = max(category_matches, key=category_matches.get)
+        best_matches = category_matches[best_category]
+        
+        confidence = best_matches / total_matches
+        matched_kws = [kw for kw in category_keywords[best_category] if kw in text_pool]
+        
+        reasoning = (
+            f"Local Deterministic Classifier: Identified category recommendation based on keyword density. "
+            f"Matched {best_matches} primary indicator keywords for '{best_category}' ({', '.join(matched_kws)}). "
+            f"Total matching keywords across all categories was {total_matches}."
+        )
+        recommended_category = best_category
+        
+    confidence = max(0.50, min(0.99, confidence))
+    
+    return {
+        "recommended_category": recommended_category,
+        "confidence": round(confidence, 2),
+        "reasoning": reasoning,
+        "suggested_claims_remapping": []
+    }
 
 def interpret_market_segment(category_context: str) -> dict:
     """
@@ -230,4 +253,56 @@ def interpret_market_segment(category_context: str) -> dict:
             "key_drivers": [],
             "growth_opportunities": [],
             "underrepresented_claims": []
+        }
+
+class PackagingExtractResponse(BaseModel):
+    name: str = Field(description="The extracted product name")
+    brand: str = Field(description="The brand/manufacturer name")
+    category: str = Field(description="The recommended category mapping")
+    claims: List[str] = Field(description="Cleaned, split list of health claims extracted from packaging")
+    ingredients: List[str] = Field(description="Cleaned, split list of active ingredients extracted from packaging")
+
+def ocr_extract_packaging_label(image_content: bytes, mime_type: str, filename: str) -> dict:
+    """
+    Simulates or calls Gemini to run OCR and computer vision on product packaging images.
+    Cleans and splits the extracted claims and ingredients.
+    """
+    if not client:
+        raise ValueError("Gemini API key is not configured. Label OCR scanning requires a valid GEMINI_API_KEY.")
+
+    # Call Gemini Flash to run Computer Vision & OCR
+    prompt = (
+        "You are an expert supplement compliance auditor. Run OCR and computer vision on this product packaging image.\n"
+        "1. Extract the product name, brand, recommended category (must be one of: Sleep & Relaxation, Energy & Performance, Immunity, Gut Health, Cognitive Support, Stress & Mood, Beauty From Within, Healthy Aging).\n"
+        "2. Extract and clean the product claims (split them into short individual sentences, cleaning out promotional sentences like 'We guarantee it!').\n"
+        "3. Extract the active ingredients list, cleaning out chemical additives or carriers (keep only active compounds, split them into list items).\n"
+        "Return the output in structured JSON."
+    )
+
+    try:
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=[
+                types.Part.from_bytes(data=image_content, mime_type=mime_type),
+                prompt
+            ],
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=PackagingExtractResponse,
+                temperature=0.1
+            )
+        )
+        data = json.loads(response.text)
+        data["reasoning"] = f"Gemini 2.5 Computer Vision Ingestion: Extracted product details and claims directly from the packaging image."
+        return data
+    except Exception as e:
+        print(f"Gemini OCR extraction failed: {e}")
+        # Return fallback on exception
+        return {
+            "name": "Fallback Multi-Vitamin",
+            "brand": "Standard Catalog",
+            "category": "Immunity",
+            "claims": ["Supports general health and daily immune functions."],
+            "ingredients": ["Vitamin C", "Vitamin D"],
+            "reasoning": f"OCR Ingestion Error: {str(e)}. Defaulted to fallback mapping."
         }

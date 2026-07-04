@@ -136,7 +136,6 @@ export const ProductDetail = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <ConfidenceBadge confidence={product.ai_confidence} />
           <StatusBadge status={product.review_status} />
           
           <button
@@ -176,10 +175,6 @@ export const ProductDetail = () => {
               <div className="flex justify-between">
                 <span className="text-slate-400 font-bold">Source type:</span>
                 <span className="text-slate-700 font-semibold">Packaging scan Ingestion</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400 font-bold">Confidence:</span>
-                <span className="text-slate-700 font-semibold">{(product.ai_confidence * 100).toFixed(0)}%</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400 font-bold">Extraction points:</span>
@@ -225,8 +220,6 @@ export const ProductDetail = () => {
                     <p className="text-xs font-bold text-slate-850">"{claim.raw_text}"</p>
                     <div className="flex flex-wrap items-center gap-2 text-[10px] text-slate-400 font-semibold">
                       <span>Normalized claim: <strong>{claim.normalized_claim}</strong></span>
-                      <span>&bull;</span>
-                      <span className="rounded bg-violet-50 text-violet-700 px-1.5 py-0.2">Confidence: {(claim.confidence * 100).toFixed(0)}%</span>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
@@ -259,7 +252,6 @@ export const ProductDetail = () => {
                   </div>
                   <div className="text-[11px] text-slate-500 font-semibold space-y-1">
                     <div>Active Dosage: <strong className="text-slate-700">{ing.dosage || "Not listed"}</strong></div>
-                    <div>Extraction confidence: {(ing.confidence * 100).toFixed(0)}%</div>
                   </div>
                 </div>
               ))}
@@ -316,8 +308,6 @@ export const ProductDetail = () => {
                   </p>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold">
-                  <span>Reclassified confidence: {(classificationAnalysis.confidence * 100).toFixed(0)}%</span>
-                  <span>&bull;</span>
                   <span className="text-violet-600">Reclassification requires manual Reviewer Override click in Governance queue.</span>
                 </div>
               </div>
@@ -387,9 +377,6 @@ export const ProductDetail = () => {
                     <span>{formatDate(step.timestamp)}</span>
                   </div>
                   <h4 className="text-xs font-bold text-slate-800">{step.details}</h4>
-                  {step.confidence < 1.0 && (
-                    <div className="text-[10px] text-violet-500 font-bold">Extraction Confidence: {(step.confidence * 100).toFixed(0)}%</div>
-                  )}
                 </div>
               ))}
             </div>

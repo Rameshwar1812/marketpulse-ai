@@ -11,12 +11,12 @@ from app.routers import auth, dashboard, market, products, chat, reviews, audit,
 # Create database tables (SQLite will create file if it doesn't exist)
 Base.metadata.create_all(bind=engine)
 
-# Auto seed only if database tables are empty
-db = SessionLocal()
-try:
-    seed_database(db)
-finally:
-    db.close()
+# Auto seed disabled to allow clean analyst signup testing
+# db = SessionLocal()
+# try:
+#     seed_database(db)
+# finally:
+#     db.close()
 
 app = FastAPI(
     title="MarketPulse AI API",

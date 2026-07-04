@@ -154,9 +154,11 @@ To log into the platform, utilize the following pre-seeded credentials:
 * `POST /api/reviews/{review_id}/send-back` - Flag ingestion records for recount
 * `GET /api/audit` - Searchable governance audit trail
 
-### Ingestion Data
+### Ingestion Data & OCR Ingestion
 * `GET /api/sources` - Ingestion feeds listings
-* `POST /api/sources/upload-csv` - File format validation and column headers check
+* `POST /api/sources/upload-csv` - CSV file validation and column headers check
+* `POST /api/sources/upload-image` - OCR text scan and structured packaging analysis (Product Claims Agent CV model)
+* `POST /api/sources/import-records` - Batched sequential import of catalog records to Neon DB
 
 ### System
 * `GET /health` - Light database status and Gemini API setup reporting

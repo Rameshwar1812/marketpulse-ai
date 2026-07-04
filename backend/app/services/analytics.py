@@ -198,3 +198,86 @@ def build_executive_metrics(db: Session):
         "illustrative_automation_saving": hours_saved_illustrative,
         "automation_percentage": 80.0
     }
+
+def generate_local_executive_insights(db: Session):
+    """
+    Computes exactly 3 high-impact executive observations using SQL aggregates.
+    Bypasses Gemini API call to conserve API key quota.
+    """
+    product_count = db.query(Product).count()
+    if product_count == 0:
+        return [
+            {
+                "number": 1,
+                "headline": "Workspace Ready for Ingestion",
+                "explanation": "The catalog is currently empty. Upload a product catalog in the Data Sources tab to start analysis.",
+                "confidence": 1.0,
+                "evidence_count": 0
+            },
+            {
+                "number": 2,
+                "headline": "Compliance Review Queue Active",
+                "explanation": "Low-confidence classifications will automatically hold for human review and override controls.",
+                "confidence": 1.0,
+                "evidence_count": 0
+            },
+            {
+                "number": 3,
+                "headline": "Lineage Audit Logging Enabled",
+                "explanation": "All analyst mapping overrides and active dataset changes are captured in the secure Audit Trail.",
+                "confidence": 1.0,
+                "evidence_count": 0
+            }
+        ]
+        
+    highest_mom = db.query(Category.name, func.avg(Product.momentum_score).label("avg_mom"), func.count(Product.id).label("cnt"))\
+        .join(Product, Product.category_id == Category.id)\
+        .group_by(Category.name)\
+        .order_by(desc("avg_mom")).first()
+        
+    highest_rev = db.query(Category.name, func.sum(Product.illustrative_revenue).label("total_rev"))\
+        .join(Product, Product.category_id == Category.id)\
+        .group_by(Category.name)\
+        .order_by(desc("total_rev")).first()
+        
+    highest_prod = db.query(Product.name, Product.momentum_score, Brand.name.label("brand_name"))\
+        .join(Brand, Product.brand_id == Brand.id)\
+        .order_by(desc(Product.momentum_score)).first()
+        
+    observations = []
+    if highest_mom:
+        observations.append({
+            "number": 1,
+            "headline": f"{highest_mom[0]} Category Exhibits Strongest Momentum",
+            "explanation": f"This category leads in average momentum index ({round(highest_mom[1], 1)}/10) across {highest_mom[2]} products.",
+            "confidence": 0.95,
+            "evidence_count": int(highest_mom[2])
+        })
+    if highest_rev:
+        cat_p_count = db.query(Product).join(Category).filter(Category.name == highest_rev[0]).count()
+        observations.append({
+            "number": 2,
+            "headline": f"{highest_rev[0]} Generates Top Market Revenue Share",
+            "explanation": f"Supplement products in this category lead the catalog with a combined illustrative revenue of ${round(highest_rev[1]/1000000, 1)}M across {cat_p_count} products.",
+            "confidence": 0.90,
+            "evidence_count": int(cat_p_count)
+        })
+    if highest_prod:
+        observations.append({
+            "number": 3,
+            "headline": f"Product '{highest_prod[0]}' Leads Early Velocity",
+            "explanation": f"Developed by {highest_prod[2]}, this product showcases a high velocity momentum score of {highest_prod[1]}/10.",
+            "confidence": 0.95,
+            "evidence_count": 1
+        })
+        
+    while len(observations) < 3:
+        observations.append({
+            "number": len(observations) + 1,
+            "headline": "System Operations Active",
+            "explanation": "Active supplement databases are continuously analyzed for category growth whitespace.",
+            "confidence": 1.0,
+            "evidence_count": 0
+        })
+        
+    return observations

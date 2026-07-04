@@ -6,10 +6,9 @@ from app.services.analytics import (
     build_executive_metrics, 
     calculate_category_revenue, 
     calculate_category_momentum, 
-    find_emerging_signals
+    find_emerging_signals,
+    generate_local_executive_insights
 )
-from app.services.context_builder import build_dashboard_context
-from app.services.gemini_service import generate_executive_summary
 
 router = APIRouter(prefix="/api/dashboard", tags=["Dashboard"])
 
@@ -31,13 +30,8 @@ def get_emerging_signals(db: Session = Depends(get_db), current_user=Depends(get
 
 @router.get("/executive-insights")
 def get_executive_insights(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
-    # Build overall data context and let Gemini interpret
-    context = build_dashboard_context(db)
-    insights = generate_executive_summary(context)
-    return insights
+    return generate_local_executive_insights(db)
 
 @router.post("/executive-insights/refresh")
 def refresh_executive_insights(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
-    context = build_dashboard_context(db)
-    insights = generate_executive_summary(context)
-    return insights
+    return generate_local_executive_insights(db)

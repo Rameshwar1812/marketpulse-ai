@@ -182,14 +182,10 @@ export const ReviewQueue = () => {
       <DemoDataNotice />
 
       {/* KPI Stats Strip */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div className="rounded-xl border border-slate-200 bg-white p-4">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pending Reviews</span>
           <p className="text-xl font-black text-slate-800 mt-1">{pendingCount}</p>
-        </div>
-        <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Low Confidence (&lt;70%)</span>
-          <p className="text-xl font-black text-amber-600 mt-1">{lowConfidenceCount}</p>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Overrides Seeded</span>
@@ -199,7 +195,7 @@ export const ReviewQueue = () => {
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Avg Resolution Time</span>
           <p className="text-xl font-black text-slate-800 mt-1">4.2 min</p>
         </div>
-        <div className="hidden lg:block rounded-xl border border-slate-200 bg-white p-4">
+        <div className="rounded-xl border border-slate-200 bg-white p-4">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Audited Classifications</span>
           <p className="text-xl font-black text-slate-800 mt-1">{reviews.length}</p>
         </div>
@@ -216,7 +212,6 @@ export const ReviewQueue = () => {
                 <tr className="border-b border-slate-150 bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
                   <th className="py-3.5 pl-4">Product details</th>
                   <th className="py-3.5">AI classification recommendation</th>
-                  <th className="py-3.5 text-center">Confidence</th>
                   <th className="py-3.5">Flagged Reason</th>
                   <th className="py-3.5">Assigned reviewer</th>
                   <th className="py-3.5">Status</th>
@@ -236,9 +231,6 @@ export const ReviewQueue = () => {
                     </td>
                     <td className="py-4 font-semibold text-violet-700">
                       {rev.ai_recommendation || "Approve current"}
-                    </td>
-                    <td className="py-4 text-center">
-                      <ConfidenceBadge confidence={rev.ai_confidence} />
                     </td>
                     <td className="py-4 text-[11px] font-semibold text-slate-500">{rev.reason_flagged}</td>
                     <td className="py-4 text-slate-500">
@@ -311,9 +303,6 @@ export const ReviewQueue = () => {
               <p className="font-semibold text-slate-700 leading-relaxed">
                 {selectedReview?.ai_recommendation || "Retain existing category mapping."}
               </p>
-              <div className="text-[10px] text-slate-400 font-bold">
-                Calculated Extraction Confidence: {(selectedReview?.ai_confidence * 100).toFixed(0)}%
-              </div>
             </div>
 
             {/* Evidence items details list */}
